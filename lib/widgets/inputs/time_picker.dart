@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/widgets/caption_text.dart';
+import 'package:app/widgets/caption_text.dart';
 
 class TimeField extends StatefulWidget {
   const TimeField({

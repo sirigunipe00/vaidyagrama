@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vaidyagrama/core/di/injector.dart';
-import 'package:vaidyagrama/features/auth/model/logged_in_user.dart';
-import 'package:vaidyagrama/widgets/dailogs/app_snack_bar_widget.dart';
+import 'package:app/core/di/injector.dart';
+import 'package:app/core/utils/app_flavor.dart';
+import 'package:app/features/auth/model/logged_in_user.dart';
+import 'package:app/widgets/dailogs/app_snack_bar_widget.dart';
 
 
 
 extension BuildContextExt on BuildContext {
+  AppFlavour get appFlavor => $sl.get<AppFlavour>();
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   ColorScheme get colorScheme => Theme.of(this).colorScheme;

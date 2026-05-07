@@ -13,7 +13,7 @@ class AppIcons {
 
   // static const bubbles = AppIcon('$imagesPath/bubbles.svg');
 
-  static const logistic = AppIcon('$imagesPath/logistic1.png');
+  static const task = AppIcon('$imagesPath/task.png');
   static const loading = AppIcon('$imagesPath/loading2.png');
   static const orderDelivery = AppIcon('$imagesPath/delivery1.png');
   static const inward = AppIcon(

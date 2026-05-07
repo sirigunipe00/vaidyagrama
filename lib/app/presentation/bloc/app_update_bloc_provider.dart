@@ -1,8 +1,8 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vaidyagrama/app/data/app_repo.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/app/data/app_repo.dart';
+import 'package:app/core/core.dart';
 
 
 typedef AppVersionCubit = NetworkRequestCubit<bool, None>;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/styles/text_styles.dart';
-import 'package:vaidyagrama/widgets/loading_indicator.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/styles/text_styles.dart';
+import 'package:app/widgets/loading_indicator.dart';
 class SubmitBtn extends StatelessWidget {
   const SubmitBtn({
     super.key,

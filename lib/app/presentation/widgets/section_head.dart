@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/widgets/app_spacer.dart';
+import 'package:app/widgets/app_spacer.dart';
 
 
 class SectoinHead extends StatelessWidget {

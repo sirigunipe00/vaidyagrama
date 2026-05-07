@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/features/auth/presentation/ui/authentication_scrn.dart';
+import 'package:app/features/auth/presentation/ui/authentication_scrn.dart';
 
 
 
@@ -59,7 +59,7 @@ class PasswordChangedPage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                  const  LoginScrnWidget()));
+                  const  AuthenticationScrn()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF0B3D91), 

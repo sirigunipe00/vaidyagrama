@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/model/failure.dart';
+import 'package:app/core/model/failure.dart';
 
 
 ValueNotifier<bool> shouldAskForConfirmation = ValueNotifier(false);

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/features/auth/model/logged_in_user.dart';
-import 'package:vaidyagrama/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:app/core/core.dart';
+import 'package:app/features/auth/model/logged_in_user.dart';
+import 'package:app/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
 typedef ApiCall<T> = Future<ApiResponse<T>> Function(RequestConfig<T> config);
 typedef StandardApiResponse<T> = Future<Either<Failure, ApiResponse<T>>>;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/styles/text_styles.dart';
-import 'package:vaidyagrama/widgets/buttons/app_btn.dart';
-import 'package:vaidyagrama/widgets/spaced_column.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/styles/text_styles.dart';
+import 'package:app/widgets/buttons/app_btn.dart';
+import 'package:app/widgets/spaced_column.dart';
 
 
 class AppFailureWidget extends StatelessWidget {

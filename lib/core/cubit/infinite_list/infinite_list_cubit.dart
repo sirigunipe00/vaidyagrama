@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vaidyagrama/core/cubit/base/base_cubit.dart';
-import 'package:vaidyagrama/core/model/failure.dart';
-import 'package:vaidyagrama/core/utils/typedefs.dart';
+import 'package:app/core/cubit/base/base_cubit.dart';
+import 'package:app/core/model/failure.dart';
+import 'package:app/core/utils/typedefs.dart';
 
 part 'infinite_list_cubit.freezed.dart';
 

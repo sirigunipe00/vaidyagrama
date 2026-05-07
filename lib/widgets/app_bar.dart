@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
+import 'package:app/styles/app_color.dart';
 
 
 class CustomAppBar extends StatelessWidget {

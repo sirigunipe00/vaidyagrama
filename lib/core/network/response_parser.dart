@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/logger/app_logger.dart';
-import 'package:vaidyagrama/core/network/api_response.dart';
-import 'package:vaidyagrama/core/di/injector.dart';
-import 'package:vaidyagrama/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:app/core/logger/app_logger.dart';
+import 'package:app/core/network/api_response.dart';
+import 'package:app/core/di/injector.dart';
+import 'package:app/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
 typedef ApiObjectParser<T> = T Function(Map<String, dynamic>);
 

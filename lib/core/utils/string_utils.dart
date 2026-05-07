@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/core/core.dart';
 
 class StringUtils {
   static bool equals(String? str1, String? str2) {

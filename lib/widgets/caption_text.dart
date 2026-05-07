@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
 
 class CaptionText extends StatelessWidget {
   const CaptionText({

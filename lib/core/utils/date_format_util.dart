@@ -1,7 +1,7 @@
 
 
 import 'package:intl/intl.dart';
-import 'package:vaidyagrama/core/logger/app_logger.dart';
+import 'package:app/core/logger/app_logger.dart';
 
 
 /// Shortcut for DateFormatUtil [DFU]

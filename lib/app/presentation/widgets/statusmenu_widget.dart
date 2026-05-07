@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/app/presentation/widgets/app_page_view2.dart';
-import 'package:vaidyagrama/app/presentation/widgets/staticlist_tile.dart';
+import 'package:app/app/presentation/widgets/app_page_view2.dart';
+import 'package:app/app/presentation/widgets/staticlist_tile.dart';
 
 
 class StatusMenuWidget extends StatefulWidget {

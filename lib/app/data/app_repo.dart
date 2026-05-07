@@ -2,13 +2,13 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vaidyagrama/app/data/app_version.dart';
-import 'package:vaidyagrama/core/consts/urls.dart';
-import 'package:vaidyagrama/core/logger/app_logger.dart';
-import 'package:vaidyagrama/core/model/failure.dart';
-import 'package:vaidyagrama/core/network/base_api_repo.dart';
-import 'package:vaidyagrama/core/network/request_config.dart';
-import 'package:vaidyagrama/core/utils/dartz_utils.dart';
+import 'package:app/app/data/app_version.dart';
+import 'package:app/core/consts/urls.dart';
+import 'package:app/core/logger/app_logger.dart';
+import 'package:app/core/model/failure.dart';
+import 'package:app/core/network/base_api_repo.dart';
+import 'package:app/core/network/request_config.dart';
+import 'package:app/core/utils/dartz_utils.dart';
 
 @lazySingleton
 class AppRepository extends BaseApiRepository {

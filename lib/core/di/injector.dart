@@ -10,7 +10,7 @@ import 'package:http/io_client.dart';
 import 'package:injectable/injectable.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vaidyagrama/core/di/injector.config.dart';
+import 'package:app/core/di/injector.config.dart';
 
 final $sl = GetIt.instance;
 

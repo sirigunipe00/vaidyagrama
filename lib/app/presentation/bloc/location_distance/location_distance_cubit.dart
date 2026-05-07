@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/core/core.dart';
 import 'dart:math';
 
 enum GeoLocationState { initial, loading, success, failure }

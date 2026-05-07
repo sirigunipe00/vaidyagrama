@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/widgets/app_spacer.dart';
-import 'package:vaidyagrama/widgets/buttons/app_btn.dart';
-import 'package:vaidyagrama/widgets/dailogs/app_dialogs.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/widgets/app_spacer.dart';
+import 'package:app/widgets/buttons/app_btn.dart';
+import 'package:app/widgets/dailogs/app_dialogs.dart';
 
 class DialogWidget extends StatelessWidget {
   const DialogWidget({super.key, 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/widgets/app_bar.dart';
-import 'package:vaidyagrama/widgets/buttons/app_btn.dart';
-import 'package:vaidyagrama/widgets/inputs/app_text_field.dart';
+import 'package:app/widgets/app_bar.dart';
+import 'package:app/widgets/buttons/app_btn.dart';
+import 'package:app/widgets/inputs/app_text_field.dart';
 
 
 class CreateNewPasswordPage extends StatelessWidget {

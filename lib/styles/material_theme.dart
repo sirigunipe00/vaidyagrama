@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:vaidyagrama/styles/color_scheme.dart';
+import 'package:app/styles/color_scheme.dart';
 
 
 
@@ -15,7 +15,7 @@ class AppMaterialTheme {
         fontFamily: 'Urbanist',
         textTheme: GoogleFonts.urbanistTextTheme(),
         colorScheme: scheme,
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
             side: const BorderSide(),

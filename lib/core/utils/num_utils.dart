@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/core/core.dart';
 
 
 class NumUtils {

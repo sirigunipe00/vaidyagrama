@@ -1,4 +1,4 @@
-import 'package:vaidyagrama/core/di/injector.dart';
+import 'package:app/core/di/injector.dart';
 
 final _reqisteredUrl = $sl.get<Urls>(instanceName: 'baseUrl');
 

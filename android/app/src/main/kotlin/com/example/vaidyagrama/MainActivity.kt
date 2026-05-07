@@ -1,4 +1,4 @@
-package `in`.easycloud.vaidyagrama
+package `in`.easycloud.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/features/auth/data/auth_repo.dart';
+import 'package:app/core/core.dart';
+import 'package:app/features/auth/data/auth_repo.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 

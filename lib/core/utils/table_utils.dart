@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
+import 'package:app/styles/app_color.dart';
 
 
 Widget buildTableCell(String title, {VoidCallback? onClick}) {

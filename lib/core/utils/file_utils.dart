@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/core/core.dart';
 import 'package:path_provider/path_provider.dart' as syspath;
 
 

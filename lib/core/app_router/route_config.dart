@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vaidyagrama/app/presentation/bloc/app_update_bloc_provider.dart';
-import 'package:vaidyagrama/app/presentation/ui/app_home_page.dart';
-import 'package:vaidyagrama/app/presentation/ui/app_profile_page.dart';
-import 'package:vaidyagrama/app/presentation/widgets/app_scaffold_widget.dart';
-import 'package:vaidyagrama/core/app_router/app_route.dart';
-import 'package:vaidyagrama/core/consts/messages.dart';
-import 'package:vaidyagrama/core/utils/typedefs.dart';
-import 'package:vaidyagrama/features/auth/presentation/ui/authentication_scrn.dart';
-import 'package:vaidyagrama/widgets/dailogs/app_dialogs.dart';
+import 'package:app/app/presentation/bloc/app_update_bloc_provider.dart';
+import 'package:app/app/presentation/ui/app_home_page.dart';
+import 'package:app/app/presentation/ui/app_profile_page.dart';
+import 'package:app/app/presentation/widgets/app_scaffold_widget.dart';
+import 'package:app/core/app_router/app_route.dart';
+import 'package:app/core/consts/messages.dart';
+import 'package:app/core/utils/typedefs.dart';
+import 'package:app/features/auth/presentation/ui/authentication_scrn.dart';
+import 'package:app/widgets/dailogs/app_dialogs.dart';
 
 
 
@@ -24,11 +24,11 @@ class AppRouterConfig {
 
   static final GoRouter router = GoRouter(
     navigatorKey: parentNavigatorKey,
-    initialLocation: AppRoute.login.path,
+    initialLocation: AppRoute.home.path,
     routes: <RouteBase>[
       GoRoute(
-        path: AppRoute.login.path,
-        builder: (_, state) => const LoginScrnWidget(),
+        path: AppRoute.home.path,
+        builder: (_, state) => const AppHomePage(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

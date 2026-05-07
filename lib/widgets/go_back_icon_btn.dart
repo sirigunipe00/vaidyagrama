@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/core/core.dart';
 
 class GoBackIconBtn extends StatelessWidget {
   const GoBackIconBtn({super.key});

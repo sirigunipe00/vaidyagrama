@@ -5,9 +5,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/features/auth/model/logged_in_user.dart';
-import 'package:vaidyagrama/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:app/core/core.dart';
+import 'package:app/features/auth/model/logged_in_user.dart';
+import 'package:app/features/auth/presentation/bloc/auth/auth_cubit.dart';
 
 import 'package:path/path.dart' show basename;
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/widgets/app_spacer.dart';
-import 'package:vaidyagrama/widgets/spaced_column.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/widgets/app_spacer.dart';
+import 'package:app/widgets/spaced_column.dart';
 class SuccessContent extends StatelessWidget {
   const SuccessContent({
     super.key,

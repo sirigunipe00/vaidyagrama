@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/widgets/app_failure_widget.dart';
-import 'package:vaidyagrama/widgets/app_spacer.dart';
-import 'package:vaidyagrama/widgets/empty_data_widget.dart';
-import 'package:vaidyagrama/widgets/loading_indicator.dart';
+import 'package:app/core/core.dart';
+import 'package:app/widgets/app_failure_widget.dart';
+import 'package:app/widgets/app_spacer.dart';
+import 'package:app/widgets/empty_data_widget.dart';
+import 'package:app/widgets/loading_indicator.dart';
 
 typedef ChildWidgetBuilder<T> = Widget Function(BuildContext context, T data);
 

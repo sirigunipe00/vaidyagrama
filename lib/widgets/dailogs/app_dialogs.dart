@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/widgets/dailogs/dialog_content.dart';
-import 'package:vaidyagrama/widgets/dailogs/success_content.dart';
+import 'package:app/widgets/dailogs/dialog_content.dart';
+import 'package:app/widgets/dailogs/success_content.dart';
 
 enum DialogType { normal, error, confirmRetry }
 

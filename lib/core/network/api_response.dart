@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vaidyagrama/core/model/failure.dart';
+import 'package:app/core/model/failure.dart';
 
 part 'api_response.freezed.dart';
 

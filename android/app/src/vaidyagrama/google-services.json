@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "534199255183",
+    "project_id": "vaidyagrama-b3b47",
+    "storage_bucket": "vaidyagrama-b3b47.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534199255183:android:9b03f88f64c3818d93f0fa",
+        "android_client_info": {
+          "package_name": "in.easycloud.app.vaidyagrama"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPhGSxvzCO_DIOmq3Mr3_ciGgs9_3Oxvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

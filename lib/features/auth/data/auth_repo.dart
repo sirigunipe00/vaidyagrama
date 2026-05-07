@@ -1,7 +1,7 @@
 
 
-import 'package:vaidyagrama/core/utils/typedefs.dart';
-import 'package:vaidyagrama/features/auth/model/logged_in_user.dart';
+import 'package:app/core/utils/typedefs.dart';
+import 'package:app/features/auth/model/logged_in_user.dart';
 
 
 abstract interface class AuthRepo {

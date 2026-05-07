@@ -1,65 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vaidyagrama/core/app_router/app_route.dart';
-import 'package:vaidyagrama/core/app_router/route_config.dart';
-import 'package:vaidyagrama/core/di/injector.dart';
-import 'package:vaidyagrama/features/auth/presentation/bloc/auth/auth_cubit.dart';
-import 'package:vaidyagrama/features/auth/presentation/ui/sign_in/sign_in_cubit.dart';
-import 'package:vaidyagrama/styles/material_theme.dart';
+import 'package:app/core/core.dart';
+import 'package:app/features/auth/presentation/bloc/auth/auth_cubit.dart';
+import 'package:app/features/auth/presentation/ui/sign_in/sign_in_cubit.dart';
+import 'package:app/styles/material_theme.dart';
+import 'package:app/widgets/inputs/flavor_banner.dart';
 
 
-class Vaidyagrama extends StatelessWidget {
-  const Vaidyagrama({super.key});
+
+class FrappeApp extends StatelessWidget {
+  const FrappeApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => $sl.get<AuthCubit>()..authCheckRequested()),
-        BlocProvider(create: (_) => $sl.get<SignInCubit>()),
-        // BlocProvider(create: (_) => LogisticFilterCubit()),
-        
-
-
+        BlocProvider<AuthCubit>(
+          create: (_) => $sl.get<AuthCubit>()..authCheckRequested()),
+        BlocProvider<SignInCubit>(create: (_) => $sl.get<SignInCubit>()),
+        // BlocProvider(create: (_) => GateEntryFilterCubit()),
+        // BlocProvider(create: (_) => GateExitFilterCubit()),
+        // BlocProvider(create: (_) => GateRegistrationFilterCubit()),
+        // BlocProvider(create: (_) => PoApprovalFiltersCubit()),
+        // BlocProvider(create: (_) => DispatchGaylordFilterCubit()),
         // BlocProvider(
-        //   create: (_) => LogisticBlocProvider.get().fetchLogisticsCards(),
-        // ),
-      
+        //   create: (_) => GateEntryBlocProvider.get().createGateEntriesCubit()),
+        // BlocProvider(
+        //   create: (_) => GateExitBlocProvider.get().createGateExitsCubit()),
+        // BlocProvider(
+        //   create: (_) => GateRegistrationBlocProvider.get().createGateRegistrationsCubit()),
+        // BlocProvider(create: (_) => PoApprovalBlocProvider.get().fetchPurchaseOrders()),
+        // BlocProvider(create: (_) => DispatchBlocProvider.get().fetchGaylords()),
       ],
-      child: BlocConsumer<AuthCubit, AuthState>(
+      child: BlocListener<AuthCubit, AuthState>(
         listener: (_, state) {
-          final routerCtxt = AppRouterConfig.parentNavigatorKey.currentContext;
-          if (routerCtxt == null) return;
+          final routerCtxt = AppRouterConfig.parentNavigatorKey.currentContext!;
           state.maybeWhen(
+            orElse: () => AppRoute.initial.go(routerCtxt),
             authenticated: () {
-              // final filters = Pair(StringUtils.docStatusInt('Draft'), null);
-
-
-              
-              // routerCtxt.cubit<LogisticsCardsCubit>().fetchInitial(filters);
-
-
-
+              // routerCtxt
+              //   ..cubit<GateEntriesCubit>().fetchInitial(PageListFilters.initial())
+              //   ..cubit<GateExitsCubit>().fetchInitial(PageListFilters.initial())
+              //   ..cubit<GateRegistrationsCubit>().fetchInitial(PageListFilters.initial())
+              //   ..cubit<DispatchCubit>().fetchInitial(PageListFilters.initial())
+              //   ..cubit<PoApprovalCubit>().fetchInitial(PageListFilters.initial());
               AppRoute.home.go(routerCtxt);
             },
-            unAuthenticated: () {
-              AppRoute.login.go(routerCtxt);
-            },
-            orElse: () {
-              AppRoute.login.go(routerCtxt);
-            },
+            unAuthenticated: () => AppRoute.login.go(routerCtxt),
           );
         },
-        builder: (_, state) {
-           return MaterialApp.router(
-            title: 'Scoops App',
+        child: FlavorBanner(
+          child: MaterialApp.router(
+            title: context.appFlavor.appName,
             theme: AppMaterialTheme.lightTheme,
             darkTheme: AppMaterialTheme.lightTheme,
             routerConfig: AppRouterConfig.router,
             debugShowCheckedModeBanner: false,
-          );
-          
-        },
+          ),
+        ),
       ),
     );
   }

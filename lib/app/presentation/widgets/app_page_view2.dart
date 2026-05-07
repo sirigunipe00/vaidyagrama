@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vaidyagrama/app/presentation/widgets/statusmenu_widget.dart';
-import 'package:vaidyagrama/core/ext/context_ext.dart';
-import 'package:vaidyagrama/core/model/page_view_filters_cubit.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/styles/app_text_styles.dart';
-import 'package:vaidyagrama/widgets/inputs/simple_search_bar.dart';
+import 'package:app/app/presentation/widgets/statusmenu_widget.dart';
+import 'package:app/core/ext/context_ext.dart';
+import 'package:app/core/model/page_view_filters_cubit.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/styles/app_text_styles.dart';
+import 'package:app/widgets/inputs/simple_search_bar.dart';
 
 
 enum PageMode2 {

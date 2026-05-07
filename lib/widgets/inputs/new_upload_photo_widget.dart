@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/core/utils/attachment_selection_mixin.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/widgets/caption_text.dart';
-import 'package:vaidyagrama/widgets/spaced_column.dart';
+import 'package:app/core/core.dart';
+import 'package:app/core/utils/attachment_selection_mixin.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/widgets/caption_text.dart';
+import 'package:app/widgets/spaced_column.dart';
 enum PhotoState { capture, view }
 
 class NewUploadPhotoWidget extends StatefulWidget {

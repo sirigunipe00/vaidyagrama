@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/styles/app_text_styles.dart';
-import 'package:vaidyagrama/widgets/app_spacer.dart';
-import 'package:vaidyagrama/widgets/doc_status_widget.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/styles/app_text_styles.dart';
+import 'package:app/widgets/app_spacer.dart';
+import 'package:app/widgets/doc_status_widget.dart';
 
 enum DocNoAlignment { vertical, horizontal }
 

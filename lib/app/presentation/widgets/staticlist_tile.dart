@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vaidyagrama/app/presentation/widgets/app_page_view2.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
+import 'package:app/app/presentation/widgets/app_page_view2.dart';
+import 'package:app/styles/app_color.dart';
 
 
 mixin StatusModeSelectionMixin {

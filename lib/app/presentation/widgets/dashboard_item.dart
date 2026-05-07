@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/features/auth/model/logged_in_user.dart';
-import 'package:vaidyagrama/styles/app_icons.dart';
+import 'package:app/features/auth/model/logged_in_user.dart';
+import 'package:app/styles/app_icons.dart';
 
 
 class DashboardItem {

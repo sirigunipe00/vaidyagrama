@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vaidyagrama/core/cubit/base/base_cubit.dart';
-import 'package:vaidyagrama/core/logger/app_logger.dart';
-import 'package:vaidyagrama/core/model/failure.dart';
+import 'package:app/core/cubit/base/base_cubit.dart';
+import 'package:app/core/logger/app_logger.dart';
+import 'package:app/core/model/failure.dart';
 
 
 

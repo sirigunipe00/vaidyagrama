@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/core/core.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vaidyagrama/widgets/buttons/app_btn.dart';
+import 'package:app/widgets/buttons/app_btn.dart';
 
 
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/core/core.dart';
 
 class GreetingHeader extends StatelessWidget {
   const GreetingHeader({super.key});

@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "vaidyagrama",
+            "request": "launch",
+            "type": "dart",
+            "program" : "lib/vaidyagrama_main.dart",
+            "args": [
+                "--flavor",
+                "vaidyagrama"
+            ]
+        },
+        {
+            "name": "saranya",
+            "request": "launch",
+            "type": "dart",
+            "program" : "lib/saranya_main.dart",
+            "args": [
+                "--flavor",
+                "saranya"
+            ]
+        },
+        
+    ]
+}

@@ -8,13 +8,13 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-/// import 'firebase_options.dart';
+/// import 'saranya_firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-class DefaultFirebaseOptions {
+class SaranyaFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -41,48 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDw-EL4ZDhV8ywPNanZWuK5OYM-3DZ-64M',
-    appId: '1:355883310220:web:77dfff6d525e1dff606fa9',
-    messagingSenderId: '355883310220',
-    projectId: 'vaidyagrama-eecc0',
-    authDomain: 'vaidyagrama-eecc0.firebaseapp.com',
-    storageBucket: 'vaidyagrama-eecc0.firebasestorage.app',
-    measurementId: 'G-9T3YX0RPG0',
+    apiKey: 'AIzaSyCUOqZDYkXkYZReogku7NIolQyC5vFoGq4',
+    appId: '1:1038094649031:web:5243e284263c9df46ba0e2',
+    messagingSenderId: '1038094649031',
+    projectId: 'saranya-3b638',
+    authDomain: 'saranya-3b638.firebaseapp.com',
+    storageBucket: 'saranya-3b638.firebasestorage.app',
+    measurementId: 'G-D6NV717GRE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC1xGiE_mx2aSYNEv7mRssPs9c4QNS4_5k',
-    appId: '1:355883310220:android:36806d2b3506f92e606fa9',
-    messagingSenderId: '355883310220',
-    projectId: 'vaidyagrama-eecc0',
-    storageBucket: 'vaidyagrama-eecc0.firebasestorage.app',
+    apiKey: 'AIzaSyCkB4XaNBZxhNl9TUmGIEn6exf5hn1iJjI',
+    appId: '1:1038094649031:android:c210b3ac088bc6206ba0e2',
+    messagingSenderId: '1038094649031',
+    projectId: 'saranya-3b638',
+    storageBucket: 'saranya-3b638.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC-jXufL1XgnD1h_W_GxJQDWxf4ce7-dHo',
-    appId: '1:355883310220:ios:0488705b614dffe2606fa9',
-    messagingSenderId: '355883310220',
-    projectId: 'vaidyagrama-eecc0',
-    storageBucket: 'vaidyagrama-eecc0.firebasestorage.app',
+    apiKey: 'AIzaSyAtZDKOhmxnmTJfOTbsXpw5-NOzEvHdIA0',
+    appId: '1:1038094649031:ios:116fbc8130ce94456ba0e2',
+    messagingSenderId: '1038094649031',
+    projectId: 'saranya-3b638',
+    storageBucket: 'saranya-3b638.firebasestorage.app',
     iosBundleId: 'in.easycloud.vaidyagrama',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC-jXufL1XgnD1h_W_GxJQDWxf4ce7-dHo',
-    appId: '1:355883310220:ios:0488705b614dffe2606fa9',
-    messagingSenderId: '355883310220',
-    projectId: 'vaidyagrama-eecc0',
-    storageBucket: 'vaidyagrama-eecc0.firebasestorage.app',
+    apiKey: 'AIzaSyAtZDKOhmxnmTJfOTbsXpw5-NOzEvHdIA0',
+    appId: '1:1038094649031:ios:116fbc8130ce94456ba0e2',
+    messagingSenderId: '1038094649031',
+    projectId: 'saranya-3b638',
+    storageBucket: 'saranya-3b638.firebasestorage.app',
     iosBundleId: 'in.easycloud.vaidyagrama',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDw-EL4ZDhV8ywPNanZWuK5OYM-3DZ-64M',
-    appId: '1:355883310220:web:b3f2d7140f563d5c606fa9',
-    messagingSenderId: '355883310220',
-    projectId: 'vaidyagrama-eecc0',
-    authDomain: 'vaidyagrama-eecc0.firebaseapp.com',
-    storageBucket: 'vaidyagrama-eecc0.firebasestorage.app',
-    measurementId: 'G-DMDD2ELDYJ',
+    apiKey: 'AIzaSyCUOqZDYkXkYZReogku7NIolQyC5vFoGq4',
+    appId: '1:1038094649031:web:05f75637ea54a7906ba0e2',
+    messagingSenderId: '1038094649031',
+    projectId: 'saranya-3b638',
+    authDomain: 'saranya-3b638.firebaseapp.com',
+    storageBucket: 'saranya-3b638.firebasestorage.app',
+    measurementId: 'G-4SH6TDP74Q',
   );
 }

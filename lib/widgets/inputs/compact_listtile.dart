@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
 
 class CompactCheckBoxTile extends StatelessWidget {
   const CompactCheckBoxTile({
@@ -22,7 +22,7 @@ class CompactCheckBoxTile extends StatelessWidget {
       selected: value,
       checkColor: AppColors.grey,
       activeColor: AppColors.grey,
-      fillColor: const WidgetStatePropertyAll(AppColors.white),
+      // fillColor: const WidgetStatePropertyAll(AppColors.white),
       onChanged: null,
       value: value,
       contentPadding: EdgeInsets.zero,

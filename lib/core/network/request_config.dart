@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vaidyagrama/core/network/response_parser.dart';
+import 'package:app/core/network/response_parser.dart';
 
 part 'request_config.freezed.dart';
 

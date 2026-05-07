@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/widgets/caption_text.dart';
-import 'package:vaidyagrama/widgets/spaced_column.dart';
+import 'package:app/core/core.dart';
+import 'package:app/widgets/caption_text.dart';
+import 'package:app/widgets/spaced_column.dart';
 
 class AppTextField extends StatelessWidget {
   AppTextField({

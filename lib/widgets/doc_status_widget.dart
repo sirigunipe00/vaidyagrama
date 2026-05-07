@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/styles/app_text_styles.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/styles/app_text_styles.dart';
 
 class DocStatusWidget extends StatelessWidget {
   const DocStatusWidget({super.key, required this.status});

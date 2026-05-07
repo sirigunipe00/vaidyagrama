@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/core/core.dart';
-import 'package:vaidyagrama/styles/app_color.dart';
-import 'package:vaidyagrama/styles/app_text_styles.dart';
-import 'package:vaidyagrama/widgets/spaced_column.dart';
+import 'package:app/core/core.dart';
+import 'package:app/styles/app_color.dart';
+import 'package:app/styles/app_text_styles.dart';
+import 'package:app/widgets/spaced_column.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget{
   const SimpleAppBar({super.key, required this.title});

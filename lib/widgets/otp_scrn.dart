@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vaidyagrama/widgets/app_bar.dart';
-import 'package:vaidyagrama/widgets/buttons/app_btn.dart';
-import 'package:vaidyagrama/widgets/pincode_field.dart';
+import 'package:app/widgets/app_bar.dart';
+import 'package:app/widgets/buttons/app_btn.dart';
+import 'package:app/widgets/pincode_field.dart';
 
 
 class OtpVerificationPage extends StatelessWidget {

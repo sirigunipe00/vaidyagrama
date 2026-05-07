@@ -1,8 +1,8 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:vaidyagrama/app/presentation/bloc/geo_permission/geo_permission_state.dart';
-import 'package:vaidyagrama/core/core.dart';
+import 'package:app/app/presentation/bloc/geo_permission/geo_permission_state.dart';
+import 'package:app/core/core.dart';
 
 
 class GeoPermissionHandler extends AppBaseCubit<GeoPermissionState> {

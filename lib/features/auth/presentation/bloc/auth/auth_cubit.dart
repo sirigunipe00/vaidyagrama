@@ -1,11 +1,11 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vaidyagrama/core/cubit/base/base_cubit.dart';
-import 'package:vaidyagrama/core/di/injector.dart';
-import 'package:vaidyagrama/core/logger/app_logger.dart';
-import 'package:vaidyagrama/features/auth/data/auth_repo.dart';
-import 'package:vaidyagrama/features/auth/model/logged_in_user.dart';
+import 'package:app/core/cubit/base/base_cubit.dart';
+import 'package:app/core/di/injector.dart';
+import 'package:app/core/logger/app_logger.dart';
+import 'package:app/features/auth/data/auth_repo.dart';
+import 'package:app/features/auth/model/logged_in_user.dart';
 
 
 part 'auth_cubit.freezed.dart';

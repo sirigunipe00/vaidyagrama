@@ -1,7 +1,7 @@
 
 
-import 'package:vaidyagrama/core/cubit/base/base_cubit.dart';
-import 'package:vaidyagrama/core/model/page_view_filters.dart';
+import 'package:app/core/cubit/base/base_cubit.dart';
+import 'package:app/core/model/page_view_filters.dart';
 
 
 abstract class FiltersCubit extends AppBaseCubit<PageViewFilters> {
