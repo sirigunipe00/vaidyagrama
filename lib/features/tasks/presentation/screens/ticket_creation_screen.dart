@@ -168,7 +168,10 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
       }
 
       setState(() => isLoading = false);
-      Navigator.pop(context, true);
+      if(mounted){
+        Navigator.pop(context, true);
+      }
+      
     } catch (e) {
       setState(() => isLoading = false);
       _showError(e.toString());

@@ -83,7 +83,7 @@ bool get _canCreateTask => currentUser != null;
               onPressed: () async {
                 await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => CreateTaskScreen()),
+                  MaterialPageRoute(builder: (_) => const CreateTaskScreen()),
                 );
                 _loadTasks();
               },

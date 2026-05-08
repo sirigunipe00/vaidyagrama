@@ -45,11 +45,11 @@ class _SimpleSearchBarState extends State<SimpleSearchBar> {
       margin: const EdgeInsets.symmetric(horizontal: 16),
       height: 50,
       decoration: BoxDecoration(
-        color: const Color(0xFFdadbdc).withOpacity( 0.40),
+        color: const Color(0xFFdadbdc).withValues(alpha: 0.40),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity( 0.03),
+            color: Colors.black.withValues(alpha: 0.03),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

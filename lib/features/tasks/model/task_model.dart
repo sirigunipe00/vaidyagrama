@@ -1,13 +1,4 @@
 class Task {
-  final String name;
-  final String subject;
-  final String status;
-  final String priority;
-  final String description;
-  final String creation;
-  final String creator;
-  final String? expEndDate;
-  final String? customUnit;
 
 
   Task({
@@ -37,4 +28,13 @@ class Task {
 
     );
   }
+  final String name;
+  final String subject;
+  final String status;
+  final String priority;
+  final String description;
+  final String creation;
+  final String creator;
+  final String? expEndDate;
+  final String? customUnit;
 }

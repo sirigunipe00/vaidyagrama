@@ -72,10 +72,10 @@ void didUpdateWidget(covariant SearchDropDownList<T> oldWidget) {
     final isReadOnlyMode = widget.readOnly;
 
     final backgroundColor =
-        isReadOnlyMode ? AppColors.grey.withOpacity(0.20) : Colors.white;
+        isReadOnlyMode ? AppColors.grey.withValues(alpha :0.20) : Colors.white;
 
     final borderColor =
-        isReadOnlyMode ? Colors.grey.withOpacity(0.3) : AppColors.grey.withOpacity(0.30);
+        isReadOnlyMode ? Colors.grey.withValues(alpha :0.3) : AppColors.grey.withValues(alpha :0.30);
 
     return Focus(
       focusNode: widget.focusNode,

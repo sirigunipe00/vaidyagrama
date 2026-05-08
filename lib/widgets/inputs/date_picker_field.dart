@@ -72,15 +72,15 @@ class _AppDateFieldState extends State<AppDateField> {
     final isReadOnlyMode = widget.readOnly;
 
     final backgroundColor =
-        isReadOnlyMode ? AppColors.grey.withOpacity( 0.20) : Colors.white;
+        isReadOnlyMode ? AppColors.grey.withValues(alpha:  0.20) : Colors.white;
 
     final effectiveBorderColor = isReadOnlyMode
-        ? Colors.grey.withOpacity( 0.3)
-        : AppColors.grey.withOpacity( 0.30);
+        ? Colors.grey.withValues(alpha:  0.3)
+        : AppColors.grey.withValues(alpha:  0.30);
 
     final effectiveTextStyle = TextStyle(
       color: isReadOnlyMode
-          ? AppColors.black.withOpacity( 0.7)
+          ? AppColors.black.withValues(alpha:  0.7)
           : AppColors.black,
       fontSize: 14,
       fontWeight: isReadOnlyMode ? FontWeight.w500 : FontWeight.normal,

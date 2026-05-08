@@ -101,7 +101,7 @@ Widget buildCommentBubble(CommentModel item) {
           ],
         ),
       ),
-      SizedBox(height: 8)
+      const SizedBox(height: 8)
     ],
   );
 }

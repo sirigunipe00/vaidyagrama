@@ -132,7 +132,7 @@ class _State extends State<TaskPeriodBreakdownScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,7 +174,7 @@ class _State extends State<TaskPeriodBreakdownScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
-          color: c.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+          color: c.withValues(alpha :0.1), borderRadius: BorderRadius.circular(20)),
       child: Text(status,
           style: TextStyle(color: c, fontSize: 11, fontWeight: FontWeight.w600)),
     );

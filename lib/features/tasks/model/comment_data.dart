@@ -1,9 +1,14 @@
 class CommentModel {
-  final String type; // "system" | "comment"
-  final String user;
-  final String commentEmail;
-  final String message;
-  final DateTime time;
+
+  factory CommentModel.fromJson(Map<String, dynamic> json) {
+    return CommentModel(
+      type: 'comment', // since this API is for comments
+      user: json['comment_by'] ?? '',
+      commentEmail: json['comment_email'] ?? '',
+      message: _stripHtml(json['content'] ?? ''),
+      time: DateTime.parse(json['creation']),
+    );
+  }
 
   CommentModel({
     required this.type,
@@ -12,16 +17,11 @@ class CommentModel {
     required this.message,
     required this.time,
   });
-
-  factory CommentModel.fromJson(Map<String, dynamic> json) {
-    return CommentModel(
-      type: "comment", // since this API is for comments
-      user: json['comment_by'] ?? '',
-      commentEmail: json['comment_email'] ?? '',
-      message: _stripHtml(json['content'] ?? ''),
-      time: DateTime.parse(json['creation']),
-    );
-  }
+  final String type; // "system" | "comment"
+  final String user;
+  final String commentEmail;
+  final String message;
+  final DateTime time;
 }
 
 String _stripHtml(String html) {

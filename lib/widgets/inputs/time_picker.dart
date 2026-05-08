@@ -93,12 +93,12 @@ void initState() {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ Background & border based on readonly state
+
     final bgColor =
-        widget.readOnly ? Colors.grey.withOpacity(0.2) : Colors.white;
+        widget.readOnly ? Colors.grey.withValues(alpha :0.2) : Colors.white;
     final borderColor = widget.readOnly
-        ? Colors.grey.withOpacity(0.3)
-        : Colors.grey.withOpacity(0.6);
+        ? Colors.grey.withValues(alpha :0.3)
+        : Colors.grey.withValues(alpha :0.6);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

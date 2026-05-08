@@ -1,15 +1,4 @@
 class TaskAttachments {
-  final String fileUrl;
-  final String fileName;
-  final int fileSize;
-  final String name;
-
-  TaskAttachments({
-    required this.fileUrl,
-    required this.fileName,
-    required this.fileSize,
-    required this.name
-  });
 
   factory TaskAttachments.fromJson(Map<String, dynamic> json) {
     return TaskAttachments(
@@ -19,4 +8,15 @@ class TaskAttachments {
       name: json['name'] ?? '',
     );
   }
+
+  TaskAttachments({
+    required this.fileUrl,
+    required this.fileName,
+    required this.fileSize,
+    required this.name
+  });
+  final String fileUrl;
+  final String fileName;
+  final int fileSize;
+  final String name;
 }

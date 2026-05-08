@@ -61,16 +61,16 @@ class InputField extends StatelessWidget {
     final bool isReadOnlyMode = readOnly;
 
     final backgroundColor = isReadOnlyMode
-        ? AppColors.grey.withOpacity( 0.20)
+        ? AppColors.grey.withValues(alpha: 0.20)
         : Colors.white;
 
     final effectiveBorderColor = isReadOnlyMode
-        ? Colors.grey.withOpacity(0.3)
+        ? Colors.grey.withValues(alpha:0.3)
         : null;
 
     final effectiveTextStyle = TextStyle(
       color: isReadOnlyMode
-          ? AppColors.black.withOpacity(.7) 
+          ? AppColors.black.withValues(alpha:.7) 
           : AppColors.black,
       fontSize: 14,
       fontWeight: isReadOnlyMode ? FontWeight.w500 : FontWeight.normal,
@@ -90,7 +90,7 @@ class InputField extends StatelessWidget {
               color: backgroundColor,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: effectiveBorderColor ?? (borderColor ?? AppColors.grey.withOpacity(0.30)),
+                color: effectiveBorderColor ?? (borderColor ?? AppColors.grey.withValues(alpha:0.30)),
                 width: 0,
               ),
             ),

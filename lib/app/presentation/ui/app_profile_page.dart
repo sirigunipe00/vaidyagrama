@@ -1,10 +1,5 @@
-
-
-
 import 'dart:math' as math;
-
 import 'package:app/app/presentation/widgets/app_page_view.dart';
-import 'package:app/app/presentation/widgets/app_page_view2.dart';
 import 'package:app/styles/app_color.dart';
 import 'package:app/styles/app_text_styles.dart';
 import 'package:app/widgets/app_spacer.dart';

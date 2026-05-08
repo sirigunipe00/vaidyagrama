@@ -77,9 +77,9 @@ class _AuthenticationScrnState extends State<AuthenticationScrn> {
                       style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.transparent,
                         shadows: [
-                          const Shadow(color: AppColors.white, offset: Offset(0, -5)),
+                          const Shadow(color: AppColors.black, offset: Offset(0, -5)),
                         ],
-                        decorationColor: AppColors.white,
+                        decorationColor: AppColors.black,
                         decoration: TextDecoration.underline,
                         height: 1.5,
                         fontWeight: FontWeight.bold,

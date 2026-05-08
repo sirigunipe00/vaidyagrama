@@ -13,9 +13,9 @@ import 'package:app/features/tasks/presentation/widgets/activity_section.dart';
 import 'package:app/features/tasks/presentation/screens/full_screen_image.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
-  final Task task;
 
   const TaskDetailsScreen({super.key, required this.task});
+  final Task task;
 
   @override
   State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();

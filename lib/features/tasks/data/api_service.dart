@@ -291,8 +291,6 @@ class TaskApiService {
       '$base/api/method/frappe.desk.form.assign_to.remove',
     );
 
-    print(
-        'Removing assignment for user: $user from task: $taskName using url: $url');
 
     await http.post(
       url,

@@ -3,7 +3,6 @@ import 'package:app/app/presentation/widgets/app_page_view.dart';
 import 'package:app/core/core.dart';
 import 'package:app/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/app/presentation/bloc/app_update_bloc_provider.dart';
 import 'package:app/styles/app_color.dart';

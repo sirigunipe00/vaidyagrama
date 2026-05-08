@@ -48,7 +48,7 @@ class AppPageView extends StatelessWidget {
               border: Border.all(color: AppColors.pageViewColor),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.black.withOpacity(0.5),
+                  color: AppColors.black.withValues(alpha: 0.5),
                   blurRadius: 10,
                   offset: const Offset(0, -1),
                 )

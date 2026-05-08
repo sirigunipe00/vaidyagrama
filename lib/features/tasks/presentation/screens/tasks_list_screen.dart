@@ -70,7 +70,7 @@ int weekCount = tasks.where((t) {
   DateTime date = DateTime.parse(t.creation);
 
   DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-  DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+  DateTime endOfWeek = startOfWeek.add (const Duration(days: 6));
 
   return date.isAfter(startOfWeek.subtract(const Duration(days: 1))) &&
          date.isBefore(endOfWeek.add(const Duration(days: 1)));
@@ -105,13 +105,13 @@ int weekCount = tasks.where((t) {
                   currentUser != null
                       ? Text(
                           currentUser!.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         )
-                      : Text(''),
+                      : const Text(''),
                 ],
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               const SizedBox(height: 16),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -134,7 +134,7 @@ int weekCount = tasks.where((t) {
                 child: RefreshIndicator(
                   onRefresh: loadTasks,
                   child: filteredTasks.isEmpty
-                      ? Center(child: Text('No tasks available'))
+                      ? const Center(child: Text('No tasks available'))
                       : ListView.builder(
                           itemCount: filteredTasks.length,
                           itemBuilder: (_, index) {
@@ -168,7 +168,7 @@ int weekCount = tasks.where((t) {
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => CreateTaskScreen(),
+                        builder: (_) => const CreateTaskScreen(),
                       ),
                     );
                     loadTasks();
@@ -196,7 +196,7 @@ int weekCount = tasks.where((t) {
 
   } else if (selectedFilter == 'This Week') {
     DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-    DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
 
     temp = temp.where((t) {
       if (t.creation.isEmpty) return false;
@@ -272,8 +272,8 @@ int weekCount = tasks.where((t) {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
+        boxShadow: const [
+           BoxShadow(
             color: Colors.black12,
             blurRadius: 6,
           )
