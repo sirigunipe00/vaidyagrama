@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const darkBlue = Color(0xFF163A6B);
+  static const aztecAura = Color(0xFFFDEEBC);
+  static const marigoldDDust = Color(0xFFF4D03F);
+  static const haintBlue = Color(0xFF2D9AFF);
+  static const vibrantBlue = Color(0xFF1E90FF);
   static const white = Color(0xFFFFFFFF);
-  static const liteblue=Color(0xFFe3f2fe);
-  static const liteyellow = Color(0xFFffd879);
-  static const yellow = Color(0xFFffd162);
-  static const litecyan=Color(0xFF56cccb);
-  static const litegreen=Color(0xFF6eefcf);
-  static const sandal=Color(0xFFffae9a);
-  static const black=Colors.black;
-
-  static const grey = Color(0xFF898996);
-  static const liteGrey = Color(0XFFF8F8F8);
+  static const black = Colors.black;
+  static const liteBlack = Color(0xFF263238);
+  static const grey = Colors.grey;
   static const red = Colors.red;
-  static const liteRed = Color(0xD3FF8D85);
-  static const liteblack = Color(0xFF606060);
-
-  static const carla = Color(0xFFF2F9CF);
-  static const litegrey = Color(0xFFfafafa);
-  static const porcelianEarth = Color(0xFFF4FFBD);
+  static const approval =Color(0xFF0FB094);
+  static const blueshade =Color(0xFFF0F9FF);
+  static const titlecolor =Color(0xFF0EA78D);
+  static const subtitlecolor = Color(0xFF263238);
+  static const registration =Color(0xFF97BD77); 
+  static const dispatch = Color(0xFFFF7E4D);
+  static const dispatchs = Color(0xFFFF8F64);
+  static const dashboard =Color(0xFF3E8FEE);
+  static const dashboardWhite = Color(0xFFFCFCFC);
+  static const dashboardred = Color(0xFFE53636);
+  static const hightbar =Color(0xFF006BE8);
+  static const smallbar =Color(0xFF8DC2FF);
+  static const approvals =Color(0xFF0DAB8F);
+  static const imagecolor = Color(0xFFBDF1E8);
   static const green = Color(0xFF1C8C4C);
-  static const seaGrass = Color(0xFF67B18A);
-  static const chlorophyll = Color(0xFFB4D7C4);
+  static const lavender = Color(0xFFC8BDFF);
+  static const shyMoment = Color(0xFFAA9AFF);
+  static const pageViewColor = Color(0xFFF5FBFF);
   static const chimneySweep = Color(0xFF263238);
-  static const sunGlare = Color(0xFFF2F8D1);
-  static const bleachedSilk = Color(0XFFF2F2F2);
+  static const himlayaPeeks = Color(0xFFE2EAF0);
 }

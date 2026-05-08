@@ -14,7 +14,7 @@ class GoBackIconBtn extends StatelessWidget {
         child: const CircleAvatar(
           backgroundColor: AppColors.white,
           radius: 16,
-          child: Icon(Icons.arrow_back, color: AppColors.liteyellow, size: 20),
+          child: Icon(Icons.arrow_back, color: AppColors.blueshade, size: 20),
         ),
       ),
     );

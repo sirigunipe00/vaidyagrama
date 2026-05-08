@@ -7,7 +7,7 @@ abstract class _AppRoutePaths {
   static const home = '/home';
   static const account = '/account';
   static const dashboard = '/dashboard';
-  static const logistic='/home/logistic';
+  static const task='/home/task';
    static const loading='/home/loading';
   static const newlogistic ='/home/logistic/newlogistic';
   static const newLoading='/home/loading/newLoading';
@@ -29,7 +29,7 @@ enum AppRoute {
   login(_AppRoutePaths.login),
   home(_AppRoutePaths.home),
   dashboard(_AppRoutePaths.dashboard),
-  logistic(_AppRoutePaths.logistic),
+  task(_AppRoutePaths.task),
   loading(_AppRoutePaths.loading),
   orderDelivery(_AppRoutePaths.orderDelivery),
   createInward(_AppRoutePaths.crateInward),

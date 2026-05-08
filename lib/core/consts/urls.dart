@@ -3,12 +3,12 @@ import 'package:app/core/di/injector.dart';
 final _reqisteredUrl = $sl.get<Urls>(instanceName: 'baseUrl');
 
 class Urls {
-  factory Urls.local() =>
-  
-      const Urls('http://95.216.152.85:8000/api');
-  factory Urls.uAT() =>
-   const Urls('https://agrocoldexuat.easycloud.co.in/api');
-   factory Urls.live() =>  const Urls('https://livescoops.easycloud.co.in/api');
+
+  factory Urls.saranyaUAT() =>const Urls('https://saranyauat.easycloud.co.in/api');
+  factory Urls.saranyaLive() =>  const Urls('https://livescoops.easycloud.co.in/api');
+
+  factory Urls.vaidyagramaUAT() =>const Urls('https://vaidyagramauat.easycloud.co.in/api');
+  factory Urls.vaidyagramaLive() =>  const Urls('https://livescoops.easycloud.co.in/api');
 
 
 
@@ -29,7 +29,7 @@ class Urls {
   static final jsonWs = '$baseUrl/resource';
   static final cusWs = '$baseUrl/method';
 
-  static final login = '$cusWs/login';
+  static final getUsers = '$cusWs/vaidyagrama_app.mobile_app_api.getUsers';
   static final getList = '$cusWs/frappe.client.get_list';
   // static final getUsers = '$cusWs/shaktihormann.api.getUsers';
 
@@ -77,7 +77,7 @@ class Urls {
 
 
 
-   static final getUsers = '$cusWs/scoops.api.getUsers';
+  
   static final logout = '$cusWs/scoops.overrides.logout';
 
   static final appVersion = '$cusWs/easy_common.api.get_app_version';

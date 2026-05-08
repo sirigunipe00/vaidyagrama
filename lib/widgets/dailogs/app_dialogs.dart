@@ -46,7 +46,7 @@ class AppDialog {
           content: content,
           buttonText: buttonText,
           onTapDismiss: onTapDismiss,
-          imagePath: 'assets/images/Error.png',
+          imagePath: 'assets/images/error.svg',
         ),
       );
     
@@ -66,7 +66,7 @@ class AppDialog {
         barrierDismissible: false,
         pageBuilder: (_, __, ___) => SuccessContent(
           title: title,
-          imagePath: 'assets/images/loadSucess.png',
+          imagePath: 'assets/images/succes.svg',
           content: content,
           buttonText: buttonText,
           onTapDismiss: 

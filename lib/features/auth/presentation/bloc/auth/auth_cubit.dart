@@ -42,25 +42,15 @@ class AuthCubit extends AppBaseCubit<AuthState> {
     }
   }
 
-  void signOut() async {
+   void signOut() async {
     try {
       emitSafeState(const _Loading());
+      // await OneSignal.User.pushSubscription.optOut();
       await repo.signOut();
-      // Only unregister if LoggedInUser is registered
-      if ($sl.isRegistered<LoggedInUser>()) {
-        await $sl.unregister<LoggedInUser>();
-      }
+      await $sl.unregister<LoggedInUser>();
       emitSafeState(const _UnAuthenticated());
     } on Exception catch (e,st) {
       $logger.error('[Auth Cubit] cant able to logout', e,st);
-      // Ensure we're in unauthenticated state even if logout fails
-      if ($sl.isRegistered<LoggedInUser>()) {
-        try {
-          await $sl.unregister<LoggedInUser>();
-        } catch (_) {
-          // Ignore unregister errors
-        }
-      }
       emitSafeState(const _UnAuthenticated());
     }
   }

@@ -41,15 +41,5 @@ class GreetingHeader extends StatelessWidget {
 
 }
 
-extension on BuildContext {
-  String dayOfTimeGreeting() {
-    final currHour = DFU.now().hour;
-    return switch (currHour) {
-      >= 0 && < 12 => 'Good Morning,',
-      >= 12 && < 17 => 'Good Afternoon,',
-      >= 17 && < 20 => 'Good Evening,',
-      _ => 'Good Night,',
-    };
-  }
-}
+
 

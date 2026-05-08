@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget {
             child: IconButton(
               onPressed: onBack ?? () => context.pop(),
               icon: const Icon(Icons.arrow_back_ios_new_rounded,
-                  color: AppColors.liteyellow),
+                  color: AppColors.blueshade),
             ),
           ),
           const SizedBox(width: 60),

@@ -18,19 +18,7 @@ class FrappeApp extends StatelessWidget {
         BlocProvider<AuthCubit>(
           create: (_) => $sl.get<AuthCubit>()..authCheckRequested()),
         BlocProvider<SignInCubit>(create: (_) => $sl.get<SignInCubit>()),
-        // BlocProvider(create: (_) => GateEntryFilterCubit()),
-        // BlocProvider(create: (_) => GateExitFilterCubit()),
-        // BlocProvider(create: (_) => GateRegistrationFilterCubit()),
-        // BlocProvider(create: (_) => PoApprovalFiltersCubit()),
-        // BlocProvider(create: (_) => DispatchGaylordFilterCubit()),
-        // BlocProvider(
-        //   create: (_) => GateEntryBlocProvider.get().createGateEntriesCubit()),
-        // BlocProvider(
-        //   create: (_) => GateExitBlocProvider.get().createGateExitsCubit()),
-        // BlocProvider(
-        //   create: (_) => GateRegistrationBlocProvider.get().createGateRegistrationsCubit()),
-        // BlocProvider(create: (_) => PoApprovalBlocProvider.get().fetchPurchaseOrders()),
-        // BlocProvider(create: (_) => DispatchBlocProvider.get().fetchGaylords()),
+    
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listener: (_, state) {
@@ -40,10 +28,7 @@ class FrappeApp extends StatelessWidget {
             authenticated: () {
               // routerCtxt
               //   ..cubit<GateEntriesCubit>().fetchInitial(PageListFilters.initial())
-              //   ..cubit<GateExitsCubit>().fetchInitial(PageListFilters.initial())
-              //   ..cubit<GateRegistrationsCubit>().fetchInitial(PageListFilters.initial())
-              //   ..cubit<DispatchCubit>().fetchInitial(PageListFilters.initial())
-              //   ..cubit<PoApprovalCubit>().fetchInitial(PageListFilters.initial());
+
               AppRoute.home.go(routerCtxt);
             },
             unAuthenticated: () => AppRoute.login.go(routerCtxt),

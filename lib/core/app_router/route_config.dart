@@ -1,3 +1,6 @@
+import 'package:app/app/presentation/ui/app_splash_scrn.dart';
+import 'package:app/features/auth/presentation/ui/authentication_scrn.dart';
+import 'package:app/features/tasks/presentation/screens/task_dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,7 +11,6 @@ import 'package:app/app/presentation/widgets/app_scaffold_widget.dart';
 import 'package:app/core/app_router/app_route.dart';
 import 'package:app/core/consts/messages.dart';
 import 'package:app/core/utils/typedefs.dart';
-import 'package:app/features/auth/presentation/ui/authentication_scrn.dart';
 import 'package:app/widgets/dailogs/app_dialogs.dart';
 
 
@@ -24,11 +26,15 @@ class AppRouterConfig {
 
   static final GoRouter router = GoRouter(
     navigatorKey: parentNavigatorKey,
-    initialLocation: AppRoute.home.path,
+    initialLocation: AppRoute.initial.path,
     routes: <RouteBase>[
       GoRoute(
-        path: AppRoute.home.path,
-        builder: (_, state) => const AppHomePage(),
+        path: AppRoute.initial.path,
+        builder: (_, state) => const AppSplashScreen(),
+      ),
+      GoRoute(
+        path: AppRoute.login.path,
+        builder: (_, state) => const AuthenticationScrn(),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -66,92 +72,29 @@ class AppRouterConfig {
                                 ..request(),
                       child: const AppHomePage(),
                     ),
-                routes: const [
+                routes:  [
                  
-                  // GoRoute(
-                  //   path: _getPath(AppRoute.logistic),
-                  //   builder: (ctxt, state) {
-                  //     final filters = Pair(
-                  //       StringUtils.docStatusInt('Draft'),
-                  //       null,
-                  //     );
-                  //     return BlocProvider(
-                  //       create:
-                  //           (context) =>
-                  //               LogisticBlocProvider.get().fetchLogisticsCards()
-                  //                 ..fetchInitial(filters),
-                  //       child: const LogisticListScrn(),
-                  //     );
-                  //   },
-                  //   routes: [
-                  //     GoRoute(
-                  //       path: _getPath(AppRoute.newLogistic),
-                  //       onExit: (context, state) async {
-                  //         final form = state.extra as LogisticsCard?;
-                  //         final formStatus =
-                  //             form?.docStatus == 1 ? 'Submitted' : 'Draft';
-                  //         return await _promptConf(
-                  //           context,
-                  //           formStatus: formStatus,
-                  //         );
-                  //       },
-                  //       builder: (_, state) {
-                  //         final gateEntryForm = state.extra as LogisticsCard?;
+                  GoRoute(
+                    path: _getPath(AppRoute.task),
+                    builder: (ctxt, state) => const TaskDashboardScreen(),
+                    routes: [
+                      GoRoute(
+                        path: _getPath(AppRoute.newLogistic),
+                       
+                        builder: (_, state) {
 
-                  //         return MultiBlocProvider(
-                  //           providers: [
-                  //             BlocProvider(
-                  //               create:
-                  //                   (_) =>
-                  //                       LogisticBlocProvider.get()
-                  //                           .getSales()
-                  //                         ..request(gateEntryForm?.name ?? ''),
-                  //             ),
+
+                          return MultiBlocProvider(
+                            providers: const  [
                               
-                  //             BlocProvider(
-                  //               create:
-                  //                   (_) =>
-                  //                       LogisticBlocProvider.get()
-                  //                           .getDriver()
-                  //                         ..request(''),
-                  //             ),
-                  //             BlocProvider(
-                  //               create:
-                  //                   (_) =>
-                  //                       LogisticBlocProvider.get()
-                  //                           .getDriverList()
-                  //                         ..request(''),
-                  //             ),
-                  //              BlocProvider(
-                  //               create:
-                  //                   (_) =>
-                  //                       LogisticBlocProvider.get()
-                  //                           .getVehicleList()
-                  //                         ..request(''),
-                  //             ),
-
-                  //             BlocProvider(
-                  //               create:
-                  //                   (_) =>
-                  //                       $sl.get<CreateLogisticCubit>()
-                  //                         ..initDetails(gateEntryForm),
-                  //             ),
-
-                  //             BlocProvider(
-                  //               create:
-                  //                   (_) =>
-                  //                       LogisticBlocProvider.get()
-                  //                           .getSalesOrderList()
-                  //                         ..request(gateEntryForm?.customerType ?? ''),
-                  //             ),
                               
-                  //           ],
-                  //           child: const NewLogistic(),
-                  //         );
-                  //       },
-                  //     ),
-                  //   ],
-                  // ),
+                            ],
+                            child: const TaskDashboardScreen(),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                   // GoRoute(
                   //   path: _getPath(AppRoute.loading),
                   //   builder: (ctxt, state) {

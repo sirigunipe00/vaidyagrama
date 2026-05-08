@@ -23,9 +23,9 @@ import '../../features/auth/data/auth_repo.dart' as _i13;
 import '../../features/auth/data/auth_repo_impl.dart' as _i14;
 import '../../features/auth/presentation/bloc/auth/auth_cubit.dart' as _i16;
 import '../../features/auth/presentation/ui/sign_in/sign_in_cubit.dart' as _i15;
-import '../core.dart' as _i10;
-import '../local_storage/key_vale_storage.dart' as _i11;
-import '../network/api_client.dart' as _i9;
+import '../core.dart' as _i11;
+import '../local_storage/key_vale_storage.dart' as _i9;
+import '../network/api_client.dart' as _i10;
 import '../network/internet_check.dart' as _i8;
 import 'injector.dart' as _i19;
 
@@ -56,24 +56,24 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.lazySingleton<_i8.InternetConnectionChecker>(
         () => _i8.InternetConnectionChecker(gh<_i4.Connectivity>()));
-    gh.factory<_i9.ApiClient>(() => _i9.ApiClient(
-          gh<_i3.Client>(),
-          gh<_i10.InternetConnectionChecker>(),
-        ));
-    gh.factory<_i11.KeyValueStorage>(() => _i11.KeyValueStorage(
+    gh.factory<_i9.KeyValueStorage>(() => _i9.KeyValueStorage(
           gh<_i5.FlutterSecureStorage>(),
           gh<_i7.SharedPreferences>(),
+        ));
+    gh.factory<_i10.ApiClient>(() => _i10.ApiClient(
+          gh<_i3.Client>(),
+          gh<_i11.InternetConnectionChecker>(),
         ));
     gh.lazySingleton<_i12.AppVersion>(
         () => _i12.AppVersion(gh<_i6.PackageInfo>()));
     gh.lazySingleton<_i13.AuthRepo>(() => _i14.AuthRepoImpl(
-          gh<_i10.ApiClient>(),
-          gh<_i10.KeyValueStorage>(),
+          gh<_i11.ApiClient>(),
+          gh<_i11.KeyValueStorage>(),
         ));
     gh.factory<_i15.SignInCubit>(() => _i15.SignInCubit(gh<_i13.AuthRepo>()));
     gh.factory<_i16.AuthCubit>(() => _i16.AuthCubit(gh<_i13.AuthRepo>()));
     gh.lazySingleton<_i17.AppRepository>(() => _i17.AppRepository(
-          gh<_i10.ApiClient>(),
+          gh<_i11.ApiClient>(),
           gh<_i12.AppVersion>(),
         ));
     gh.lazySingleton<_i18.AppUpdateBlocprovider>(

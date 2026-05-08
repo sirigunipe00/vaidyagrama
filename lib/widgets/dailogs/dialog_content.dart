@@ -79,7 +79,7 @@ class DialogWidget extends StatelessWidget {
                     child: AppButton(
                       label: buttonText,
                       onPressed: onTapDismiss,
-                      bgColor: AppColors.darkBlue,
+                      bgColor: AppColors.blueshade,
                    
                     ),
                   ),
@@ -88,7 +88,7 @@ class DialogWidget extends StatelessWidget {
                     Expanded(
                       child: AppButton(
                         label: confirmBtnText!, onPressed: onTapConfirm, 
-                        bgColor: AppColors.darkBlue,
+                        bgColor: AppColors.blueshade,
                       
                       ),
                     ),

@@ -54,7 +54,7 @@ class _AuthenticationScrnState extends State<AuthenticationScrn> {
                   ),
                 ),
                 Text(
-                  "Please login to continue",
+                  'Please login to continue',
                   style: context.textTheme.labelLarge?.copyWith(
                     color: AppColors.black,
                     fontWeight: FontWeight.w600,

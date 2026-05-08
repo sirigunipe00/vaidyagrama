@@ -1,4 +1,5 @@
 
+import 'package:app/core/utils/date_format_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/core/di/injector.dart';
@@ -37,5 +38,15 @@ extension BuildContextExt on BuildContext {
     );
   }
 
- 
+
+  String dayOfTimeGreeting() {
+    final currHour = DFU.now().hour;
+    return switch (currHour) {
+      < 12 => 'Good Morning,',
+      > 12 && <= 16 => 'Good Afternoon,',
+      > 16 && < 20 => 'Good Evening,',
+      >= 20 => 'Good Night,',
+      _ => '',
+    };
+  }
 }
