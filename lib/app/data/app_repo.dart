@@ -45,12 +45,12 @@ class AppRepository extends BaseApiRepository {
   }
 }
 bool isUpdateRequired(String appVersion, String serverVersion) {
-  // Handle empty or null server version - no update required if server version is empty
+
   if (serverVersion.isEmpty || serverVersion == 'null') {
     return false;
   }
   
-  // Handle empty app version - update required if app version is empty but server has version
+
   if (appVersion.isEmpty) {
     return true;
   }

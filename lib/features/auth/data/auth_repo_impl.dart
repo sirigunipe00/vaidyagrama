@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/core/utils/app_flavor.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:app/core/core.dart';
@@ -17,7 +18,7 @@ class AuthRepoImpl extends BaseApiRepository implements AuthRepo {
   @override
   Future<bool> isLoggedIn() async {
     try {
-      final user = await storage.getSecureString(LocalKeys.user);
+      final user = await storage.getSecureString('$_appName.${LocalKeys.user}');
       return (user.containsValidValue && json.decode(user!) is Map);
     } on Exception catch (e, st) {
       $logger.error('[repo] could not check for persisted user', e, st);
@@ -25,33 +26,16 @@ class AuthRepoImpl extends BaseApiRepository implements AuthRepo {
     }
   }
 
- 
   @override
   AsyncValueOf<LoggedInUser> logIn(String username, String pswd) async {
     return await executeSafely(() async {
       final requestConfig = RequestConfig(
         url: Urls.getUsers,
         parser: (res) {
-          // final data = res['message']['data'] as List<dynamic>;
-          final message = res['message'];
-
-          if (message == null) {
-            throw Exception('Missing message in response');
-          }
-
-          final data = message['data'];
-
-          if (data is List && data.isNotEmpty) {
-            return LoggedInUser.fromJson(data.first);
-          } else if (data is Map<String, dynamic>) {
-            return LoggedInUser.fromJson(data);
-          } else {
-            throw Exception('Unexpected data format in login response: $data');
-          }
-
-          // return LoggedInUser.fromJson(data.first);
+          final data = res['message']['data'] as List<dynamic>;
+          return LoggedInUser.fromJson(data.first);
         },
-        body: jsonEncode({'usr': username, 'pwd': pswd}),
+        body: jsonEncode({'usr' : username, 'pwd' : pswd}),
       );
 
       final response = await post(requestConfig, includeAuthHeader: false);
@@ -62,18 +46,17 @@ class AuthRepoImpl extends BaseApiRepository implements AuthRepo {
         }
         final userWithPswd = r.data!.copyWith(password: pswd);
         await _persistUser(userWithPswd);
-        await storage.setString(LocalKeys.apiKey, userWithPswd.apiKey);
-        await storage.setString(LocalKeys.apiSecret, userWithPswd.apiSecret);
+        await storage.setString('$_appName.${LocalKeys.apiKey}', userWithPswd.apiKey);
+        await storage.setString('$_appName.${LocalKeys.apiSecret}', userWithPswd.apiSecret);
         return right(userWithPswd);
       });
     });
   }
 
-
   Future<Either<Failure, bool>> _persistUser(LoggedInUser user) async {
     try {
       final userJson = jsonEncode(user.toJson());
-      await storage.setSecureString(LocalKeys.user, userJson);
+      await storage.setSecureString('$_appName.${LocalKeys.user}', userJson);
 
       return right(true);
     } on Exception catch (e, st) {
@@ -85,7 +68,7 @@ class AuthRepoImpl extends BaseApiRepository implements AuthRepo {
   @override
   AsyncValueOf<LoggedInUser> getPersistedUser() async {
     try {
-      final userSource = await storage.getSecureString(LocalKeys.user);
+      final userSource = await storage.getSecureString('$_appName.${LocalKeys.user}');
       if (userSource.doesNotHaveValue) {
         return left(const Failure(error: 'No user details found'));
       }
@@ -101,36 +84,6 @@ class AuthRepoImpl extends BaseApiRepository implements AuthRepo {
   @override
   AsyncValueOf<bool> signOut() async {
     try {
-
-      try {
-        if ($sl.isRegistered<LoggedInUser>()) {
-          final requestConfig = RequestConfig(
-            url: Urls.logout,
-            parser: (res) {
-
-              return res;
-            },
-          );
-          
-
-          await post(requestConfig).then((response) {
-            response.fold(
-              (failure) {
-                $logger.info('[repo] Logout API call failed, but continuing with local logout: ${failure.error}');
-              },
-              (success) {
-                $logger.info('[repo] Logout API call successful');
-              },
-            );
-          }).catchError((e) {
-            $logger.info('[repo] Logout API call error, but continuing with local logout: $e');
-          });
-        }
-      } catch (e, st) {
-        $logger.info('[repo] Error calling logout API, but continuing with local logout', e, st);
-      }
-      
-
       await storage.clearAllValues();
       await storage.clearAllSecureValues();
       return right(true);
@@ -140,4 +93,5 @@ class AuthRepoImpl extends BaseApiRepository implements AuthRepo {
     }
   }
 
+  String get _appName => $sl.get<AppFlavour>().appName;
 }

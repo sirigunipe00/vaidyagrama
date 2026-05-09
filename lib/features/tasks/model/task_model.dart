@@ -10,6 +10,7 @@ class Task {
     required this.creation,
     required this.creator,
     required this.expEndDate,
+    required this.owner,
     this.customUnit,
 
   });
@@ -17,6 +18,7 @@ class Task {
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
       name: json['name'] ?? '',
+      owner: json['owner'] ?? '',
       subject: json['subject'] ?? '',
       status: json['status'] ?? '',
       priority: json['priority'] ?? '',
@@ -33,6 +35,7 @@ class Task {
   final String status;
   final String priority;
   final String description;
+  final String owner;
   final String creation;
   final String creator;
   final String? expEndDate;

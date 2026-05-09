@@ -6,7 +6,7 @@ class AppIcons {
   static const basePath = 'assets';
   static const imagesPath = '$basePath/images';
   static const iconsPath = '$basePath/logo';
-  static const bgFrame1 = AppIcon('$imagesPath/bg_frame_2.png');
+  static const bgFrame1 = AppIcon('$imagesPath/bg_frame_1.png');
   static const saranya = AppIcon('$imagesPath/saranya.png');
   static const vaidyagrama = AppIcon('$imagesPath/vaidyagramalogo.png');
 

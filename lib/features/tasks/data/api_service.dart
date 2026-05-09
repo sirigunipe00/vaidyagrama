@@ -7,6 +7,7 @@ import 'package:app/features/auth/model/logged_in_user.dart';
 import 'package:app/features/tasks/model/attachment_model.dart';
 import 'package:app/features/tasks/model/comment_data.dart';
 import 'package:app/features/tasks/model/task_model.dart';
+import 'package:app/features/tasks/model/user_list.dart';
 import 'package:app/features/tasks/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -38,10 +39,11 @@ class TaskApiService {
 
   final url = Uri.parse(
     '$base/api/resource/Task'
-    '?fields=["name","subject","status","priority","project","creation","description","exp_end_date"]'
+    '?fields=["name","subject","status","priority","project","creation","description","exp_end_date","owner"]'
     '&order_by=creation desc'
     '&limit_page_length=None',
   );
+  print('.........$url');
 
   final response = await http.get(
     url,
@@ -62,6 +64,41 @@ class TaskApiService {
   return data
       .map((e) => Task.fromJson(e))
       .toList();
+}
+
+
+static Future<List<UserList>> fetchUsersList() async {
+
+  final String base =
+      Urls.baseUrl.replaceAll('/api', '');
+
+  final url = Uri.parse(
+    '$base/api/method/frappe.client.get_list'
+    '?doctype=User'
+    '&fields=["*"]'
+    '&limit_page_length=None',
+  );
+
+  final response = await http.get(
+    url,
+    headers: headers,
+  );
+
+  if (response.statusCode != 200) {
+    throw Exception(
+      'fetchUsersList failed '
+      '[${response.statusCode}]',
+    );
+  }
+
+  final decoded = jsonDecode(response.body);
+
+  final List data = decoded['message'];
+
+  return data
+      .map((e) => UserList.fromJson(e))
+      .toList();
+     
 }
 
   static Future<List<String>> fetchAssignees(String taskName) async {

@@ -124,7 +124,7 @@ class _SettingsCardContent extends StatelessWidget {
             ],
           ),
         ),
-        // SvgPicture.asset(AppIcons.settingsCuate.path, alignment: Alignment.topRight),
+        SvgPicture.asset(AppIcons.settingsCuate.path, alignment: Alignment.topRight),
       ],
     );
   }

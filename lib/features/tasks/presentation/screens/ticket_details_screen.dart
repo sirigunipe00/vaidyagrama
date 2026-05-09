@@ -296,11 +296,12 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                     style: const TextStyle(fontSize: 10, color: Colors.red),
                   ),
                 ),
+               
               ],
             ),
             Text(
-              widget.task.creator,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
+              widget.task.owner,
+              style: const TextStyle(fontSize: 14, color: Colors.black),
             ),
           ],
         ),

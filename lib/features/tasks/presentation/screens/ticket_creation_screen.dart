@@ -3,9 +3,11 @@ import 'dart:typed_data';
 import 'package:app/core/di/injector.dart';
 import 'package:app/features/auth/model/logged_in_user.dart';
 import 'package:app/features/tasks/data/api_service.dart';
+import 'package:app/features/tasks/model/user_list.dart';
 import 'package:app/features/tasks/model/user_model.dart';
 import 'package:app/features/tasks/presentation/screens/image_preview_screen.dart';
 import 'package:app/features/tasks/presentation/screens/video_preview_screen.dart';
+import 'package:app/widgets/inputs/search_dropdown_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -29,21 +31,22 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
   bool isLoading = false;
   List<UserModel> users = [];
   List<UserModel> selectedUsers = [];
+
+  List<UserList> usersList = [];
+  UserList? selectedUserList;
   final ImagePicker picker = ImagePicker();
 
   final LoggedInUser user = $sl.get<LoggedInUser>();
 
-  
-
   @override
   void initState() {
     super.initState();
- 
+
     loadUsers();
   }
 
   Future<void> loadUsers() async {
-    users = await TaskApiService.fetchUsers();
+    usersList = await TaskApiService.fetchUsersList();
     setState(() {});
   }
 
@@ -79,8 +82,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                               strokeWidth: 2,
                             ),
                           )
-                        : const Text('Create',
-                            style: TextStyle(fontSize: 18)),
+                        : const Text('Create', style: TextStyle(fontSize: 18)),
                   ),
           ),
         ],
@@ -112,10 +114,12 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               controller: TextEditingController(text: category),
               hint: 'Maintenance',
             ),
+            buildDateField(),
             buildInputField(
               title: 'STATUS',
               controller: TextEditingController(text: status),
               hint: 'Open',
+              readOnly: true,
             ),
             buildDropdownField(
               title: 'PRIORITY',
@@ -123,7 +127,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
               items: const ['Low', 'Medium', 'High', 'Urgent'],
               onChanged: (v) => setState(() => priority = v),
             ),
-
             buildAssignTo(),
             const SizedBox(height: 20),
           ],
@@ -141,7 +144,6 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
       _showError('Description is mandatory');
       return;
     }
-    
 
     setState(() => isLoading = true);
 
@@ -153,25 +155,26 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         project: 'PROJ-0001',
         status: status,
         dueDate: dueDate,
-        username: user.name,
-        );
+        username: selectedUserList?.fullName ?? '',
+      );
 
       final taskName = response['data']['name'];
 
-      for (final u in selectedUsers) {
-        await TaskApiService.assignUser(taskName: taskName, username: u.name);
+      if (selectedUserList != null) {
+        await TaskApiService.assignUser(
+          taskName: taskName,
+          username: selectedUserList!.name ?? '',
+        );
       }
-
       for (final image in selectedImages) {
         await TaskApiService.uploadFile(
             taskName: taskName, file: File(image.path));
       }
 
       setState(() => isLoading = false);
-      if(mounted){
+      if (mounted) {
         Navigator.pop(context, true);
       }
-      
     } catch (e) {
       setState(() => isLoading = false);
       _showError(e.toString());
@@ -193,10 +196,74 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
       ),
     );
   }
+  Widget buildDateField() {
+  return buildSection(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'DUE DATE',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
 
-  
+        const SizedBox(height: 8),
 
- 
+        GestureDetector(
+          onTap: () async {
+            final pickedDate = await showDatePicker(
+              context: context,
+              initialDate: dueDate ?? DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
+            );
+
+            if (pickedDate != null) {
+              setState(() {
+                dueDate = pickedDate;
+              });
+            }
+          },
+
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 16,
+            ),
+
+            decoration: BoxDecoration(
+              color: const Color(0xFFF2F3FF),
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: Colors.grey),
+            ),
+
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  dueDate == null
+                      ? 'Select Due Date'
+                      : '${dueDate!.day}/${dueDate!.month}/${dueDate!.year}',
+                  style: TextStyle(
+                    color: dueDate == null
+                        ? Colors.grey
+                        : Colors.black,
+                  ),
+                ),
+
+                const Icon(Icons.calendar_today, size: 18),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
   Widget buildAssignTo() {
     return buildSection(
       child: Column(
@@ -207,24 +274,37 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
             style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 8),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F3FF),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: const Color(0xFFD6D9F0)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  user.email ?? '',
-                  style: const TextStyle(fontSize: 16),
-                ),
-                const Icon(Icons.lock, size: 16, color: Colors.grey),
-              ],
-            ),
+          SearchDropDownList<UserList>(
+            title: '',
+            hint: 'Select User',
+            items: usersList,
+            color: Colors.black,
+            defaultSelection: selectedUserList,
+            futureRequest: (searchText) async {
+              if (searchText.trim().isEmpty) {
+                return usersList;
+              }
+              final query = searchText.trim().toLowerCase();
+              final filtered = usersList.where((item) {
+                final name = item.fullName?.toLowerCase() ?? '';
+
+                return name.contains(query);
+              }).toList();
+
+              return filtered;
+            },
+            listItemBuilder: (context, item, isSelected, onItemSelect) {
+              return ListTile(
+                title: Text(item.fullName ?? ''),
+                onTap: onItemSelect,
+              );
+            },
+            headerBuilder: (context, item, isExpanded) {
+              return Text(item.fullName ?? '');
+            },
+            onSelected: (value) {
+              setState(() => selectedUserList = value);
+            },
           ),
         ],
       ),
@@ -242,41 +322,62 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     );
   }
 
-  Widget buildInputField({
-    required String title,
-    required TextEditingController controller,
-    String hint = '',
-    int maxLines = 1,
-  }) {
-    return buildSection(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title,
-              style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 2),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF2F3FF),
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: Colors.grey, width: 1),
-            ),
-            child: TextField(
-              controller: controller,
-              maxLines: maxLines,
-              decoration: InputDecoration(
-                hintText: hint,
-                border: InputBorder.none,
-              ),
+ Widget buildInputField({
+  required String title,
+  required TextEditingController controller,
+  String hint = '',
+  int maxLines = 1,
+  bool readOnly = false,
+}) {
+  return buildSection(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+
+        const SizedBox(height: 8),
+
+        Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 14,
+            vertical: 2,
+          ),
+
+          decoration: BoxDecoration(
+            color: readOnly
+                ? Colors.grey.shade200
+                : const Color(0xFFF2F3FF),
+
+            borderRadius: BorderRadius.circular(6),
+
+            border: Border.all(
+              color: Colors.grey,
+              width: 1,
             ),
           ),
-        ],
-      ),
-    );
-  }
+
+          child: TextField(
+            controller: controller,
+            maxLines: maxLines,
+
+            readOnly: readOnly,
+
+            decoration: InputDecoration(
+              hintText: hint,
+              border: InputBorder.none,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   Widget buildDropdown(String title, String value, List<String> items,
       Function(String) onChanged) {
@@ -285,18 +386,16 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: const TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.bold)),
+              style:
+                  const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           DropdownButtonFormField(
             value: value,
             items: items
-                .map((e) =>
-                    DropdownMenuItem(value: e, child: Text(e)))
+                .map((e) => DropdownMenuItem(value: e, child: Text(e)))
                 .toList(),
             onChanged: (v) => onChanged(v.toString()),
-            decoration:
-                const InputDecoration(border: OutlineInputBorder()),
+            decoration: const InputDecoration(border: OutlineInputBorder()),
           ),
         ],
       ),
@@ -360,9 +459,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                   size: 30, color: Colors.black54),
                             )
                           : Image.file(File(file.path),
-                              width: 70,
-                              height: 70,
-                              fit: BoxFit.cover),
+                              width: 70, height: 70, fit: BoxFit.cover),
                     ),
                     Positioned(
                       right: 0,
@@ -495,6 +592,7 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
     );
   }
 }
+
 Widget buildDropdownField({
   required String title,
   required String value,
@@ -512,8 +610,7 @@ Widget buildDropdownField({
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title,
-            style: const TextStyle(
-                fontSize: 12, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: value,
@@ -523,8 +620,7 @@ Widget buildDropdownField({
           onChanged: (v) => onChanged(v!),
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 14, vertical: 2),
+            contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 2),
           ),
         ),
       ],

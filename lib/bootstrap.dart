@@ -25,7 +25,7 @@ Future<void> bootstrap(AppFlavour config ,void Function() runApp) async {
 
   // Register Url as Per Mode
   final url = switch (config.mode) {
-    FrappeAppMode.vaidyagrama => kDebugMode ? Urls.vaidyagramaUAT() : Urls.vaidyagramaUAT(),
+    FrappeAppMode.vaidyagrama => kDebugMode ? Urls.vaidyagramaLive() : Urls.vaidyagramaLive(),
     FrappeAppMode.saranya => kDebugMode ? Urls.saranyaUAT() : Urls.saranyaUAT(),
 
   };

@@ -8,7 +8,7 @@ class Urls {
   factory Urls.saranyaLive() =>  const Urls('https://livescoops.easycloud.co.in/api');
 
   factory Urls.vaidyagramaUAT() =>const Urls('https://vaidyagramauat.easycloud.co.in/api');
-  factory Urls.vaidyagramaLive() =>  const Urls('https://livescoops.easycloud.co.in/api');
+  factory Urls.vaidyagramaLive() =>  const Urls('https://vaidyagrama.easycloud.co.in/api');
 
 
 

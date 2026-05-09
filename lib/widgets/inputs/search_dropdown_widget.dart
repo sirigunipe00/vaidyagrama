@@ -117,7 +117,7 @@ void didUpdateWidget(covariant SearchDropDownList<T> oldWidget) {
                 expandedBorder: Border.all(color: borderColor, width: 1),
                 hintStyle: context.textTheme.titleMedium?.copyWith(
                   color: AppColors.black,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w200,
                   fontFamily: 'Urbanist',
                 ),
               ),
