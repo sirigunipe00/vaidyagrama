@@ -33,7 +33,7 @@ Future<void> bootstrap(AppFlavour config ,void Function() runApp) async {
 
   // Register FirebaseOptions as Per Mode
   final firebaseOptions = switch (config.mode) {
-    FrappeAppMode.vaidyagrama => VaidyagramaFirebaseOptions.currentPlatform,
+    FrappeAppMode.vaidyagrama => DefaultFirebaseOptions.currentPlatform,
     FrappeAppMode.saranya => SaranyaFirebaseOptions.currentPlatform,
 
   };

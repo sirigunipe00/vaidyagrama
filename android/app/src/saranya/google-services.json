@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1038094649031",
-    "project_id": "saranya-3b638",
-    "storage_bucket": "saranya-3b638.firebasestorage.app"
+    "project_number": "414290269238",
+    "project_id": "saranya-a8742",
+    "storage_bucket": "saranya-a8742.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1038094649031:android:93cdb410e95c7cdd6ba0e2",
+        "mobilesdk_app_id": "1:414290269238:android:584cf889f0f6a239d5f497",
         "android_client_info": {
-          "package_name": "in.easycloud.app.saranya"
+          "package_name": "in.easycloud.saranya"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCkB4XaNBZxhNl9TUmGIEn6exf5hn1iJjI"
+          "current_key": "AIzaSyDPxxPnqGIz-DNoTPnUXTMQXd6Wf2YCDCk"
         }
       ],
       "services": {

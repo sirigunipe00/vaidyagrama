@@ -41,48 +41,48 @@ class SaranyaFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCUOqZDYkXkYZReogku7NIolQyC5vFoGq4',
-    appId: '1:1038094649031:web:5243e284263c9df46ba0e2',
-    messagingSenderId: '1038094649031',
-    projectId: 'saranya-3b638',
-    authDomain: 'saranya-3b638.firebaseapp.com',
-    storageBucket: 'saranya-3b638.firebasestorage.app',
-    measurementId: 'G-D6NV717GRE',
+    apiKey: 'AIzaSyAXvr83cHKuoEFkYK0uLUwQHS5XmnYhfb4',
+    appId: '1:414290269238:web:1e0817b68074bcffd5f497',
+    messagingSenderId: '414290269238',
+    projectId: 'saranya-a8742',
+    authDomain: 'saranya-a8742.firebaseapp.com',
+    storageBucket: 'saranya-a8742.firebasestorage.app',
+    measurementId: 'G-VETQPWJNKT',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCkB4XaNBZxhNl9TUmGIEn6exf5hn1iJjI',
-    appId: '1:1038094649031:android:c210b3ac088bc6206ba0e2',
-    messagingSenderId: '1038094649031',
-    projectId: 'saranya-3b638',
-    storageBucket: 'saranya-3b638.firebasestorage.app',
+    apiKey: 'AIzaSyDPxxPnqGIz-DNoTPnUXTMQXd6Wf2YCDCk',
+    appId: '1:414290269238:android:584cf889f0f6a239d5f497',
+    messagingSenderId: '414290269238',
+    projectId: 'saranya-a8742',
+    storageBucket: 'saranya-a8742.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAtZDKOhmxnmTJfOTbsXpw5-NOzEvHdIA0',
-    appId: '1:1038094649031:ios:116fbc8130ce94456ba0e2',
-    messagingSenderId: '1038094649031',
-    projectId: 'saranya-3b638',
-    storageBucket: 'saranya-3b638.firebasestorage.app',
-    iosBundleId: 'in.easycloud.vaidyagrama',
+    apiKey: 'AIzaSyAErMf7GJXlb8hj13ywcAFKZDHbmGqi4Ko',
+    appId: '1:414290269238:ios:c8e2a4a2927d7278d5f497',
+    messagingSenderId: '414290269238',
+    projectId: 'saranya-a8742',
+    storageBucket: 'saranya-a8742.firebasestorage.app',
+    iosBundleId: 'in.easycloud.saranya',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAtZDKOhmxnmTJfOTbsXpw5-NOzEvHdIA0',
-    appId: '1:1038094649031:ios:116fbc8130ce94456ba0e2',
-    messagingSenderId: '1038094649031',
-    projectId: 'saranya-3b638',
-    storageBucket: 'saranya-3b638.firebasestorage.app',
-    iosBundleId: 'in.easycloud.vaidyagrama',
+    apiKey: 'AIzaSyAErMf7GJXlb8hj13ywcAFKZDHbmGqi4Ko',
+    appId: '1:414290269238:ios:c8e2a4a2927d7278d5f497',
+    messagingSenderId: '414290269238',
+    projectId: 'saranya-a8742',
+    storageBucket: 'saranya-a8742.firebasestorage.app',
+    iosBundleId: 'in.easycloud.saranya',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCUOqZDYkXkYZReogku7NIolQyC5vFoGq4',
-    appId: '1:1038094649031:web:05f75637ea54a7906ba0e2',
-    messagingSenderId: '1038094649031',
-    projectId: 'saranya-3b638',
-    authDomain: 'saranya-3b638.firebaseapp.com',
-    storageBucket: 'saranya-3b638.firebasestorage.app',
-    measurementId: 'G-4SH6TDP74Q',
+    apiKey: 'AIzaSyAXvr83cHKuoEFkYK0uLUwQHS5XmnYhfb4',
+    appId: '1:414290269238:web:c35afac203e01b64d5f497',
+    messagingSenderId: '414290269238',
+    projectId: 'saranya-a8742',
+    authDomain: 'saranya-a8742.firebaseapp.com',
+    storageBucket: 'saranya-a8742.firebasestorage.app',
+    measurementId: 'G-K583XVNE0E',
   );
 }

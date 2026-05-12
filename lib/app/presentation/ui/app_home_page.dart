@@ -32,8 +32,8 @@ class AppHomePage extends StatelessWidget {
                     appName: context.appFlavor.appName.toUpperCase(),
                     packageName:
                         context.appFlavor.appName.toUpperCase() == 'Vaidyagrama'
-                            ? 'in.easycloud.app.vaidyagrama'
-                            : 'in.easycloud.app.saranya'),
+                            ? 'in.easycloud.vaidyagrama'
+                            : 'in.easycloud.saranya'),
                   barrierDismissible: false,
                 );
               }

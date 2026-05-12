@@ -39,11 +39,11 @@ class TaskApiService {
 
   final url = Uri.parse(
     '$base/api/resource/Task'
-    '?fields=["name","subject","status","priority","project","creation","description","exp_end_date","owner"]'
+    '?fields=["name","subject","status","priority","project","creation","description","exp_end_date","owner","custom_assigned_to"]'
     '&order_by=creation desc'
     '&limit_page_length=None',
   );
-  print('.........$url');
+
 
   final response = await http.get(
     url,

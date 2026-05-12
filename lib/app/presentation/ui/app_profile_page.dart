@@ -29,7 +29,7 @@ class AppProfilePage extends StatelessWidget {
             _ProfileItem(
               const Icon(Icons.person_2_rounded, color: AppColors.lavender), 
               'Name', 
-              context.user.name,
+              context.user.fullName ??'',
             ),
             _ProfileItem(
               const Icon(Icons.business, color: AppColors.lavender), 

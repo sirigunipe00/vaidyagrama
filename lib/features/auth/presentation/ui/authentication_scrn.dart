@@ -10,7 +10,6 @@ import 'package:app/features/auth/presentation/ui/sign_in/sign_in_cubit.dart';
 import 'package:app/styles/app_color.dart';
 import 'package:app/widgets/dailogs/app_dialogs.dart';
 
-
 class AuthenticationScrn extends StatefulWidget {
   const AuthenticationScrn({super.key});
 
@@ -46,7 +45,8 @@ class _AuthenticationScrnState extends State<AuthenticationScrn> {
                   width: context.sizeOfWidth,
                   child: Image.asset(context.appFlavor.logo, height: 200),
                 ),
-                Text('Login',
+                Text(
+                  'Login',
                   style: context.textTheme.labelLarge?.copyWith(
                     color: AppColors.black,
                     fontWeight: FontWeight.bold,
@@ -72,30 +72,27 @@ class _AuthenticationScrnState extends State<AuthenticationScrn> {
                   obscureText: showPswd,
                   suffixIcon: InkWell(
                     onTap: togglePswd,
-                    child: Text(
-                      showPswd ? ' show ' : ' hide ',
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.transparent,
-                        shadows: [
-                          const Shadow(color: AppColors.black, offset: Offset(0, -5)),
-                        ],
-                        decorationColor: AppColors.black,
-                        decoration: TextDecoration.underline,
-                        height: 1.5,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 70,
+                      child: Text(
+                        showPswd ? 'show' : 'hide',
+                        style: context.textTheme.titleMedium?.copyWith(
+                          color: AppColors.black,
+                          fontWeight: FontWeight.w600,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
                   ),
                 ),
-                
                 BlocConsumer<SignInCubit, SignInState>(
                   listener: (_, state) {
                     state.maybeWhen(
                       orElse: () {},
                       success: context.cubit<AuthCubit>().authCheckRequested,
                       failure: (failure) => AppDialog.showErrorDialog(
-                        context, 
+                        context,
                         title: failure.title,
                         content: failure.error,
                         onTapDismiss: context.close,

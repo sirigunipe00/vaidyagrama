@@ -37,6 +37,11 @@ android {
 kotlinOptions {
     jvmTarget = '17'
 }
+ packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -67,14 +72,14 @@ kotlinOptions {
     productFlavors {
         vaidyagrama {
             dimension "app"
-            applicationId "in.easycloud.app.vaidyagrama"
+            applicationId "in.easycloud.vaidyagrama"
             versionCode 1
             versionName "1.0.1"
         }
 
         saranya {
             dimension "app"
-            applicationId "in.easycloud.app.saranya"
+            applicationId "in.easycloud.saranya"
             versionCode 1
             versionName "1.0.1"
         }

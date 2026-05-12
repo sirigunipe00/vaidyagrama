@@ -5,7 +5,7 @@ final _reqisteredUrl = $sl.get<Urls>(instanceName: 'baseUrl');
 class Urls {
 
   factory Urls.saranyaUAT() =>const Urls('https://saranyauat.easycloud.co.in/api');
-  factory Urls.saranyaLive() =>  const Urls('https://livescoops.easycloud.co.in/api');
+  factory Urls.saranyaLive() =>  const Urls('https://saranya.easycloud.co.in/api');
 
   factory Urls.vaidyagramaUAT() =>const Urls('https://vaidyagramauat.easycloud.co.in/api');
   factory Urls.vaidyagramaLive() =>  const Urls('https://vaidyagrama.easycloud.co.in/api');

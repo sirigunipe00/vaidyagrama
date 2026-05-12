@@ -299,10 +299,19 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                
               ],
             ),
-            Text(
+             Column(
+               children: [
+                 Text(
+                  currentUser?.fullName ?? '',
+                  style: const TextStyle(fontSize: 14, color: Colors.black),
+                             ),
+                              Text(
               widget.task.owner,
               style: const TextStyle(fontSize: 14, color: Colors.black),
             ),
+               ],
+             ),
+           
           ],
         ),
         const SizedBox(height: 8),
@@ -632,54 +641,49 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     );
   }
 
-  Widget buildAssignmentDetails() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xffEEF1F7),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'ASSIGNMENT DETAILS',
-            style: TextStyle(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 12),
-          if (isLoadingAssignees)
-            const Center(child: CircularProgressIndicator()),
-          if (!isLoadingAssignees && assignees.isEmpty)
-            const Text('No assignees'),
-          if (!isLoadingAssignees && assignees.isNotEmpty)
-            Column(
-              children: assignees.map((user) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 16,
-                        child: Text(user[0].toUpperCase()),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          user,
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
-        ],
-      ),
-    );
-  }
+Widget buildAssignmentDetails() {
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: const Color(0xffEEF1F7),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'ASSIGNMENT DETAILS',
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
 
+        const SizedBox(height: 12),
+
+        Row(
+          children: [
+            const CircleAvatar(
+              radius: 16,
+              child: Icon(Icons.person)
+            ),
+
+            const SizedBox(width: 10),
+
+            Expanded(
+              child: Text(
+                widget.task.creator.isNotEmpty
+                    ? widget.task.creator
+                    : 'No User Assigned',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
   Future<void> reassignTask(List<UserModel> newUsers) async {
     try {
       for (final user in assignees) {
