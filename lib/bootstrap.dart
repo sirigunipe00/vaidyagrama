@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:isolate';
+import 'package:app/one_signal_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -9,6 +10,7 @@ import 'package:injectable/injectable.dart';
 import 'package:app/core/utils/app_flavor.dart';
 import 'package:app/firebase/saranya_firebase_options.dart';
 import 'package:app/firebase/vaidyagrama_firebase_options.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 
 import 'core/core.dart';
@@ -25,7 +27,7 @@ Future<void> bootstrap(AppFlavour config ,void Function() runApp) async {
 
   // Register Url as Per Mode
   final url = switch (config.mode) {
-    FrappeAppMode.vaidyagrama => kDebugMode ? Urls.vaidyagramaLive() : Urls.vaidyagramaLive(),
+    FrappeAppMode.vaidyagrama => kDebugMode ? Urls.vaidyagramaUAT() : Urls.vaidyagramaUAT(),
     FrappeAppMode.saranya => kDebugMode ? Urls.saranyaUAT() : Urls.saranyaUAT(),
 
   };
@@ -38,6 +40,7 @@ Future<void> bootstrap(AppFlavour config ,void Function() runApp) async {
 
   };
   await _initFirebase(firebaseOptions);
+  await _initOneSignal(config.mode);
   _setupErrorHandling(runApp);
 }
 
@@ -51,6 +54,15 @@ Future<void> _initFirebase(FirebaseOptions options) async {
   if (kDebugMode) {
     await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   }
+}
+Future<void> _initOneSignal(FrappeAppMode mode) async {
+  if (kDebugMode) {
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  }
+
+  OneSignal.initialize(OneSignalConfig.appIdFor(mode));
+
+  await OneSignal.Notifications.requestPermission(true);
 }
 
 void _setupErrorHandling(void Function() runApp) {

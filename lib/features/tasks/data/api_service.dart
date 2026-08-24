@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:app/core/consts/urls.dart';
+import 'package:app/core/core.dart';
 import 'package:app/core/di/injector.dart';
 import 'package:app/features/auth/model/logged_in_user.dart';
 import 'package:app/features/tasks/model/attachment_model.dart';
@@ -9,6 +10,7 @@ import 'package:app/features/tasks/model/comment_data.dart';
 import 'package:app/features/tasks/model/task_model.dart';
 import 'package:app/features/tasks/model/user_list.dart';
 import 'package:app/features/tasks/model/user_model.dart';
+import 'package:app/one_signal_config.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
@@ -261,18 +263,50 @@ static Future<List<UserList>> fetchUsersList() async {
   
 
     if (response.statusCode == 200) {
-      final taskName = decoded['data']['name'];
-      await assignUser(
-        taskName: taskName,
-        // user: "maintenance@rockwell.co.in",
-        username : username,
-      );
-
       return decoded;
     } else {
       throw Exception(decoded['message'] ?? 'Failed to create task');
     }
   }
+  static Future<Map<String, dynamic>> updateTask({
+  required String taskName,
+  required String subject,
+  required String description,
+  required String priority,
+  required String status,
+  required String username,
+  DateTime? dueDate,
+}) async {
+  final String base = Urls.baseUrl.replaceAll('/api', '');
+
+  final url = Uri.parse('$base/api/resource/Task/$taskName');
+
+  final body = <String, dynamic>{
+    'subject': subject,
+    'description': description,
+    'priority': priority,
+    'status': status,
+    'custom_assigned_to': username,
+    if (dueDate != null)
+      'exp_end_date': dueDate.toIso8601String().split('T')[0],
+  };
+
+  final response = await http.put(
+    url,
+    headers: headers,
+    body: jsonEncode(body),
+  );
+
+  final decoded = jsonDecode(response.body);
+  log('updateTask response........${response.body}');
+  log('updateTask body........${jsonEncode(body)}');
+
+  if (response.statusCode == 200 || response.statusCode == 202) {
+    return decoded;
+  } else {
+    throw Exception(decoded['message'] ?? 'Failed to update task');
+  }
+}
 
   static Future<void> updateDueDate({
     required String taskName,
@@ -316,6 +350,54 @@ static Future<List<UserList>> fetchUsersList() async {
       headers: headers,
       body: jsonEncode(reqbody),
     );
+
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception(
+        'Failed to assign task [${response.statusCode}]: ${response.body}',
+      );
+    }
+  }
+
+  static Future<void> sendAssignmentNotification({
+    required String taskName,
+    required String username,
+    required String subject,
+    required String description,
+  }) async {
+    if (OneSignalConfig.restApiKey.isEmpty) {
+      throw Exception(
+        'Missing ONESIGNAL_REST_API_KEY. Run with --dart-define.',
+      );
+    }
+$logger.devLog('send.....');
+    final response = await http.post(
+      Uri.parse('https://api.onesignal.com/notifications'),
+      headers: {
+        HttpHeaders.authorizationHeader:
+            'Key ${OneSignalConfig.restApiKey}',
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      body: jsonEncode({
+        'app_id': OneSignalConfig.vaidyagramaAppId,
+        'include_aliases': {
+          'external_id': [username],
+        },
+        'target_channel': 'push',
+        'headings': {'en': 'New task assigned'},
+        'contents': {
+          'en': 'Task $taskName: $subject\n$description',
+        },
+        'data': {'task_name': taskName},
+      }),
+    );
+    $logger.devLog('body${response.body}');
+
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      throw Exception(
+        'Failed to send task notification '
+        '[${response.statusCode}]: ${response.body}',
+      );
+    }
   }
 
   static Future<void> removeAssignment({

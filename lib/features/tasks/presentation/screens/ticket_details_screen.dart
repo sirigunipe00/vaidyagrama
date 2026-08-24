@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app/core/core.dart';
 import 'package:app/features/auth/model/logged_in_user.dart';
+import 'package:app/features/tasks/presentation/screens/ticket_creation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:app/features/tasks/data/api_service.dart';
@@ -11,6 +12,7 @@ import 'package:app/features/tasks/model/task_model.dart';
 import 'package:app/features/tasks/model/user_model.dart';
 import 'package:app/features/tasks/presentation/widgets/activity_section.dart';
 import 'package:app/features/tasks/presentation/screens/full_screen_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
 
@@ -39,6 +41,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   bool isSending = false;
   bool isLocked = false;
   final picker = ImagePicker();
+  late Task currentTask;
 
   @override
   void initState() {
@@ -47,6 +50,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     loadAttachments();
     loadComments();
     loadUser();
+    currentTask = widget.task; 
     loadUsers();
     dueDate = widget.task.expEndDate != null
         ? DateTime.parse(widget.task.expEndDate!)
@@ -67,9 +71,31 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: Text('#${widget.task.name}'),
+      // ),
       appBar: AppBar(
-        title: Text('#${widget.task.name}'),
+  title: Text('#${widget.task.name}'),
+  actions: [
+    if (currentUser != null && !isLocked)
+      IconButton(
+        icon: const Icon(Icons.edit),
+        onPressed: () async {
+          final updated = await Navigator.push<bool>(
+            context,
+            MaterialPageRoute(
+              builder: (_) => CreateTaskScreen(task: widget.task),
+            ),
+          );
+          if (updated == true) {
+            await refreshTask();
+            await loadAttachments();
+            await loadAssignees();
+          }
+        },
       ),
+  ],
+),
       backgroundColor: const Color(0xffF5F7FB),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -250,24 +276,45 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     return dueDate!.isBefore(DateTime(today.year, today.month, today.day));
   }
 
-  Future<void> refreshTask() async {
-    try {
-      if (!mounted) return;
-      setState(() => isLoading = true);
+  // Future<void> refreshTask() async {
+  //   try {
+  //     if (!mounted) return;
+  //     setState(() => isLoading = true);
 
-      final updatedTask = await TaskApiService.getTaskById(widget.task.name);
+  //     final updatedTask = await TaskApiService.getTaskById(widget.task.name);
 
-      if (!mounted) return;
-      setState(() {
-        status = updatedTask.status;
-        isLoading = false;
-      });
-    } catch (e) {
-      if (!mounted) return;
-      setState(() => isLoading = false);
-    }
+  //     if (!mounted) return;
+  //     setState(() {
+  //       status = updatedTask.status;
+  //       isLoading = false;
+  //     });
+  //   } catch (e) {
+  //     if (!mounted) return;
+  //     setState(() => isLoading = false);
+  //   }
+  // }
+Future<void> refreshTask() async {
+  try {
+    if (!mounted) return;
+    setState(() => isLoading = true);
+
+    final updatedTask = await TaskApiService.getTaskById(currentTask.name);
+
+    if (!mounted) return;
+    setState(() {
+      currentTask = updatedTask;
+      status = updatedTask.status;
+      dueDate = updatedTask.expEndDate != null
+          ? DateTime.parse(updatedTask.expEndDate!)
+          : null;
+      isLocked = status == 'Completed' || status == 'Cancelled';
+      isLoading = false;
+    });
+  } catch (e) {
+    if (!mounted) return;
+    setState(() => isLoading = false);
   }
-
+}
   // ── UI widgets ────────────────────────────────────────────────────────────
 
   Widget buildTitle() {
@@ -515,131 +562,300 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       }),
     );
   }
+  String stripHtml(String? html) {
+  if (html == null || html.isEmpty) return '';
 
+  var text = html
+      .replaceAll(RegExp(r'</p>', caseSensitive: false), '\n')
+      .replaceAll(RegExp(r'<br\s*/?>', caseSensitive: false), '\n')
+      .replaceAll(RegExp(r'<[^>]*>'), '')
+      .replaceAll('&nbsp;', ' ')
+      .replaceAll('&amp;', '&')
+      .replaceAll('&lt;', '<')
+      .replaceAll('&gt;', '>')
+      .replaceAll('&quot;', '"')
+      .replaceAll('&#39;', "'");
+
+  return text.trim();
+}
+
+  // Widget buildDescription() {
+  //   return Container(
+  //     width: double.infinity,
+  //     padding: const EdgeInsets.all(16),
+  //     decoration: BoxDecoration(
+  //       color: const Color(0xffEEF1F7),
+  //       borderRadius: BorderRadius.circular(16),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         const Text(
+  //           'DETAILED DESCRIPTION',
+  //           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+  //         ),
+  //         const SizedBox(height: 10),
+  //         Text(
+  //           widget.task.description.isNotEmpty
+  //               ? widget.task.description
+  //               : 'No description provided.',
+  //           textAlign: TextAlign.start,
+  //           style: const TextStyle(height: 1.5),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget buildDescription() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xffEEF1F7),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'DETAILED DESCRIPTION',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            widget.task.description.isNotEmpty
-                ? widget.task.description
-                : 'No description provided.',
-            textAlign: TextAlign.start,
-            style: const TextStyle(height: 1.5),
-          ),
-        ],
-      ),
-    );
-  }
+  final plainDescription = stripHtml(widget.task.description);
 
-  Widget buildAttachmentsSection() {
-    final String base = Urls.baseUrl.replaceAll('/api', '');
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xffEEF1F7),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'ATTACHMENTS (${attachments.length})',
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: attachments.map((file) {
-              final isImage = file.fileUrl.endsWith('.png') ||
-                  file.fileUrl.endsWith('.jpg') ||
-                  file.fileUrl.endsWith('.jpeg');
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: const Color(0xffEEF1F7),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'DETAILED DESCRIPTION',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          plainDescription.isNotEmpty
+              ? plainDescription
+              : 'No description provided.',
+          textAlign: TextAlign.start,
+          style: const TextStyle(height: 1.5),
+        ),
+      ],
+    ),
+  );
+}
 
-              return Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => FullScreenImage(
-                                imageUrl: '$base${file.fileUrl}',
-                              ),
-                            ),
-                          ),
-                          child: isImage
-                              ? ClipRRect(
-                                  borderRadius: BorderRadius.circular(6),
-                                  child: Image.network(
-                                    '$base${file.fileUrl}',
-                                    width: 30,
-                                    height: 30,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : const Icon(Icons.insert_drive_file, size: 30),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                file.fileName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                formatFileSize(file.fileSize),
-                                style: TextStyle(
-                                    fontSize: 10, color: Colors.grey.shade600),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: -2,
-                    right: -2,
-                    child: GestureDetector(
-                      onTap: () => deleteFile(file),
-                      child: const CircleAvatar(
-                        radius: 10,
-                        child: Icon(Icons.close, size: 14),
+Widget buildAttachmentsSection() {
+  final String base = Urls.baseUrl.replaceAll('/api', '');
+  return Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: const Color(0xffEEF1F7),
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'ATTACHMENTS (${attachments.length})',
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: attachments.map((file) {
+            final isImage = file.fileUrl.endsWith('.png') ||
+                file.fileUrl.endsWith('.jpg') ||
+                file.fileUrl.endsWith('.jpeg');
+
+            final fullUrl = '$base${file.fileUrl}';
+
+            return Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        onTap: () => isImage
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => FullScreenImage(imageUrl: fullUrl),
+                                ),
+                              )
+                            : openAttachmentUrl(fullUrl),
+                        child: isImage
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: Image.network(
+                                  fullUrl,
+                                  width: 30,
+                                  height: 30,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : const Icon(Icons.insert_drive_file, size: 30),
                       ),
+                      const SizedBox(width: 10),
+                      Expanded(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      GestureDetector(
+        onTap: () => isImage
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => FullScreenImage(imageUrl: fullUrl),
+                ),
+              )
+            : openAttachmentUrl(fullUrl),
+        child: Text(
+          file.fileName,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            fontSize: 12,
+            decoration: TextDecoration.underline,
+            color: isImage ? Colors.black87 : Colors.blue,
+          ),
+        ),
+      ),
+      const SizedBox(height: 4),
+      Text(
+        formatFileSize(file.fileSize),
+        style: TextStyle(fontSize: 10, color: Colors.grey.shade600),
+      ),
+    ],
+  ),
+),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: -2,
+                  right: -2,
+                  child: GestureDetector(
+                    onTap: () => deleteFile(file),
+                    child: const CircleAvatar(
+                      radius: 10,
+                      child: Icon(Icons.close, size: 14),
                     ),
                   ),
-                ],
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
+                ),
+              ],
+            );
+          }).toList(),
+        ),
+      ],
+    ),
+  );
+}
+
+Future<void> openAttachmentUrl(String url) async {
+  final messenger = ScaffoldMessenger.of(context);
+  final uri = Uri.parse(url);
+  try {
+    final launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (!launched) throw Exception('Could not launch');
+  } catch (e) {
+    if (!mounted) return;
+    messenger.showSnackBar(const SnackBar(content: Text('Could not open file')));
   }
+}
+
+  // Widget buildAttachmentsSection() {
+  //   final String base = Urls.baseUrl.replaceAll('/api', '');
+  //   return Container(
+  //     width: double.infinity,
+  //     padding: const EdgeInsets.all(16),
+  //     decoration: BoxDecoration(
+  //       color: const Color(0xffEEF1F7),
+  //       borderRadius: BorderRadius.circular(16),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(
+  //           'ATTACHMENTS (${attachments.length})',
+  //           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+  //         ),
+  //         const SizedBox(height: 12),
+  //         Wrap(
+  //           spacing: 10,
+  //           runSpacing: 10,
+  //           children: attachments.map((file) {
+  //             final isImage = file.fileUrl.endsWith('.png') ||
+  //                 file.fileUrl.endsWith('.jpg') ||
+  //                 file.fileUrl.endsWith('.jpeg');
+
+  //             return Stack(
+  //               clipBehavior: Clip.none,
+  //               children: [
+  //                 Padding(
+  //                   padding: const EdgeInsets.only(right: 20),
+  //                   child: Row(
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     children: [
+  //                       GestureDetector(
+  //                         onTap: () => Navigator.push(
+  //                           context,
+  //                           MaterialPageRoute(
+  //                             builder: (_) => FullScreenImage(
+  //                               imageUrl: '$base${file.fileUrl}',
+  //                             ),
+  //                           ),
+  //                         ),
+  //                         child: isImage
+  //                             ? ClipRRect(
+  //                                 borderRadius: BorderRadius.circular(6),
+  //                                 child: Image.network(
+  //                                   '$base${file.fileUrl}',
+  //                                   width: 30,
+  //                                   height: 30,
+  //                                   fit: BoxFit.cover,
+  //                                 ),
+  //                               )
+  //                             : const Icon(Icons.insert_drive_file, size: 30),
+  //                       ),
+  //                       const SizedBox(width: 10),
+  //                       Expanded(
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             Text(
+  //                               file.fileName,
+  //                               maxLines: 1,
+  //                               overflow: TextOverflow.ellipsis,
+  //                               style: const TextStyle(fontSize: 12),
+  //                             ),
+  //                             const SizedBox(height: 4),
+  //                             Text(
+  //                               formatFileSize(file.fileSize),
+  //                               style: TextStyle(
+  //                                   fontSize: 10, color: Colors.grey.shade600),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 Positioned(
+  //                   top: -2,
+  //                   right: -2,
+  //                   child: GestureDetector(
+  //                     onTap: () => deleteFile(file),
+  //                     child: const CircleAvatar(
+  //                       radius: 10,
+  //                       child: Icon(Icons.close, size: 14),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             );
+  //           }).toList(),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
 Widget buildAssignmentDetails() {
   return Container(

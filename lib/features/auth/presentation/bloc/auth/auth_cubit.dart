@@ -6,6 +6,7 @@ import 'package:app/core/di/injector.dart';
 import 'package:app/core/logger/app_logger.dart';
 import 'package:app/features/auth/data/auth_repo.dart';
 import 'package:app/features/auth/model/logged_in_user.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 
 part 'auth_cubit.freezed.dart';
@@ -31,6 +32,8 @@ class AuthCubit extends AppBaseCubit<AuthState> {
       user.fold(
         (l) => emitSafeState(const _UnAuthenticated()),
         (r) async {
+          await OneSignal.login(r.email ?? r.name);
+          await OneSignal.User.pushSubscription.optIn();
           await register<LoggedInUser>(r);
        
           emitSafeState(const _Authenticated());

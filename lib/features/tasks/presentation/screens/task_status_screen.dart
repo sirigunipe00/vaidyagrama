@@ -1,3 +1,4 @@
+import 'package:app/features/tasks/data/api_service.dart';
 import 'package:app/features/tasks/model/task_model.dart';
 import 'package:app/features/tasks/presentation/screens/ticket_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,19 +23,29 @@ class TaskPeriodBreakdownScreen extends StatefulWidget {
 }
 
 class _State extends State<TaskPeriodBreakdownScreen> {
-  String? selectedStatus;
-   @override
+ String? selectedStatus;
+  late List<Task> tasks;
+
+  @override
   void initState() {
     super.initState();
-    selectedStatus = widget.intialStatus; 
+    selectedStatus = widget.intialStatus;
+    tasks = List.from(widget.tasks);
   }
 
-  List<Task> get filtered => selectedStatus == null
-      ? widget.tasks
-      : widget.tasks.where((t) => t.status == selectedStatus).toList();
+List<Task> get filtered => selectedStatus == null
+    ? tasks
+    : tasks.where((t) => t.status == selectedStatus).toList();
 
   @override
   Widget build(BuildContext context) {
+   Future<void> refresh() async {
+  final newTasks = await TaskApiService.fetchTasks();
+
+  setState(() {
+    tasks = newTasks;
+  });
+}
     final statuses = [
       ('Open', Colors.blue.shade50, Colors.blue.shade800, Colors.blue),
       ('Working', Colors.blue.shade50, Colors.blue.shade800, Colors.blue),
@@ -62,7 +73,7 @@ class _State extends State<TaskPeriodBreakdownScreen> {
               physics: const NeverScrollableScrollPhysics(),
               crossAxisSpacing: 8, mainAxisSpacing: 8, childAspectRatio: 2.2,
               children: statuses.map((s) {
-                final count = widget.tasks.where((t) => t.status == s.$1).length;
+                final count = tasks.where((t) => t.status == s.$1).length;
                 final isSelected = selectedStatus == s.$1;
                 return GestureDetector(
                   onTap: () => setState(() =>
@@ -108,18 +119,29 @@ class _State extends State<TaskPeriodBreakdownScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: filtered.isEmpty
-                ? const Center(child: Text('No tasks found'))
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: filtered.length,
-                    itemBuilder: (_, i) => _taskCard(filtered[i]),
-                  ),
+         Expanded(
+  child: RefreshIndicator(
+    onRefresh: refresh,
+    child: filtered.isEmpty
+        ? ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: const [
+              SizedBox(height: 300),
+              Center(child: Text('No tasks found')),
+            ],
+          )
+        : ListView.builder(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: filtered.length,
+            itemBuilder: (_, i) => _taskCard(filtered[i]),
           ),
+  ),
+),
         ],
       ),
     );
+    
   }
 
   Widget _taskCard(Task task) {
