@@ -222,52 +222,91 @@ static Future<List<UserList>> fetchUsersList() async {
         .toList();
   }
 
-  static Future<Map<String, dynamic>> createTask(
-      {required String subject,
-      required String description,
-      required String priority,
-      required String project,
+ static Future<Map<String, dynamic>> createTask({
+  required String subject,
+  required String description,
+  required String priority,
+  required String project,
+  String status = 'Open',
+  DateTime? dueDate,
+  required String username,
+}) async {
+  final String base = Urls.baseUrl.replaceAll('/api', '');
+  final url = Uri.parse('$base/api/resource/Task');
 
-      String status = 'Open',
-      DateTime? dueDate,
-
-      required String username}) async {
-            final String base = Urls.baseUrl.replaceAll('/api', '');
-
-    
-    final url = Uri.parse('$base/api/resource/Task');
-
-    final body = {
-      'subject': subject,
-      'description': description,
-      'priority': priority,
-      'status': status,
-      'custom_assigned_to': username,
+  final body = {
+    'subject': subject,
+    'description': description,
+    'priority': priority,
+    'status': status,
+    'custom_assigned_to': username,
+    // "project": project,
+    if (dueDate != null)
+      'exp_end_date': dueDate.toIso8601String().split('T')[0],
+  };
 
 
-      // "project": project,
-      if (dueDate != null)
-        'exp_end_date': dueDate.toIso8601String().split('T')[0],
-    };
+  final response = await http.post(
+    url,
+    headers: headers,
+    body: jsonEncode(body),
+  );
 
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: jsonEncode(body),
+
+  Map<String, dynamic> decoded;
+  try {
+    decoded = jsonDecode(response.body);
+  } catch (e) {
+    throw Exception(
+      'Failed to create task [${response.statusCode}]: ${response.body}',
     );
+  }
 
-    final decoded = jsonDecode(response.body);
-    log('response........${response.body}');
-    log('body........${jsonEncode(body)}');
+  if (response.statusCode == 200) {
 
-  
+    return decoded;
+  } else {
+    final errorMsg = _extractFrappeError(decoded, response.body);
+    throw Exception(errorMsg);
+  }
+}
+static String _extractFrappeError(
+  Map<String, dynamic> decoded,
+  String rawBody,
+) {
+  if (decoded['exception'] != null) {
+    return decoded['exception'].toString();
+  }
 
-    if (response.statusCode == 200) {
-      return decoded;
-    } else {
-      throw Exception(decoded['message'] ?? 'Failed to create task');
+  if (decoded['_server_messages'] != null) {
+    try {
+      final List raw = jsonDecode(decoded['_server_messages']);
+      final msgs = raw
+          .map((m) {
+            try {
+              final parsed = jsonDecode(m);
+              return parsed['message']?.toString() ?? m.toString();
+            } catch (_) {
+              return m.toString();
+            }
+          })
+          .where((m) => m.trim().isNotEmpty)
+          .join('; ');
+      if (msgs.isNotEmpty) return msgs;
+    } catch (e) {
+      log('_extractFrappeError: failed to parse _server_messages: $e');
     }
   }
+
+  if (decoded['message'] is String &&
+      (decoded['message'] as String).trim().isNotEmpty) {
+    return decoded['message'];
+  }
+
+  // Last resort: dump the whole body so nothing is hidden.
+  return 'Request failed. Raw response: $rawBody';
+}
+
   static Future<Map<String, dynamic>> updateTask({
   required String taskName,
   required String subject,
